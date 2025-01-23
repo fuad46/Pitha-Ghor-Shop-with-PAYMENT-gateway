@@ -7,6 +7,11 @@
 </head>
 <body>
   <h1>Shop</h1>
+  
+  {% if user.is_authenticated %}
+  <a href="logout">Logout</a>
+  {% else %}
   <a href="/register/">Register</a> | <a href="/login/">Login</a>
+  {% endif %}
 </body>
 </html>
