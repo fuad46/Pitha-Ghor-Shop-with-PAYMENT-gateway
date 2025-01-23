@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User</title>
+</head>
+<body>
+{% if user.is_superuser %}
+  <h1>Admin Profile</h1>
+{% else %}
+  <h1>My Profile</h1>
+{% endif %}
+
+
+{% if user.is_authenticated %}
+  <p>Welcome, {{ user.email }}!<p>
+{% endif %}
+
+<a href="{% url 'home' %}">home</a>
+</body>
+</html>
