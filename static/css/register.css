@@ -1,17 +1,4 @@
 
-
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/login.css' %}">
-  <!-- <style>
     body{
       font-family: "Poppins", serif;
       font-weight: 400;
@@ -56,7 +43,7 @@
     }
     .right{
       width: 40%;
-      margin: 0 0 5% 5%;
+      margin: 5% 0 5% 5%;
       
     }
  
@@ -68,7 +55,7 @@
     .form-info{
       margin-bottom: 5%;
     }
-    input[type=email],input[type=password], select {
+    input[type=email],input[type=password], input[type=text], textarea, select {
       width: 100%;
       padding: 12px 20px;
       margin: 8px 0;
@@ -78,6 +65,7 @@
       box-sizing: border-box;
       font-size: 12px;
     }
+    
     button[type=submit] {
       width: 100%;
       background-color: #415a77;
@@ -104,43 +92,3 @@
       margin-left: 4px;
       font-weight: 600;
     }
-  </style> -->
-</head>
-<body>
-  
-  <div class="logo">&#127860;Shop</div>
-{% if error %}
-    <p style="color: rgb(233, 8, 38);">{{ error }}</p>
-{% endif %}
-<div class="main">
-  <!------------------- left start  --------------->
-  <div class="left">
-     <div class="left-title">LOGIN</div>
-  </div>
-  <!---- left end --->
-  <!------------------ right start  ---------------->
-  <div class="right">
-    <form method="post">
-        {% csrf_token %}
-        <div class="form-info">
-          <div class="label">
-            <label>Email:</label><input type="email" name="email"  placeholder="Enter Your Email..."  required>
-          </div>
-          <div class="label">
-            <label>Password:</label><input type="password" name="password" placeholder="Enter Your Password..."  required>
-          </div>
-        </div>
-        <br>
-        <button class="btn" type="submit">Login</button>
-      
-    </form>
-
-    <div class="reg-link">
-      Dont have an account? <a href="{% url 'register' %}">Register</a>
-    </div>
-    </div>
-   <!-- right end  -->
-</div>
-
-</body>
-</html>

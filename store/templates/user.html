@@ -1,22 +1,86 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'css/user.css' %}">
+  <style>
+    body{
+      font-family: "Poppins", serif;
+      font-weight: 400;
+    }
+  </style>
 </head>
 <body>
+
+  <nav>
+    <div class="logo" >&#127860; Shop</div>
+      <div class="nav-r">
+        {% if user.is_authenticated %}
+        <!-- <a href="{% url 'user' %}">My Profile</a> 
+        <a href="% url 'logout' %">Logout</a> -->
+        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'home' %}">Go Home</a>
+       
+   
+        {% else %}
+        <a href="/register/">Register</a>  <a href="/login/">Login</a>
+        {% endif %}
+      </div>  
+  </nav>
+
 {% if user.is_superuser %}
-  <h1>Admin Profile</h1>
+<div class="user">
+  <h1>Admin Profile</h1> 
+  
+  <div class="user_info_sec">
+    <div class="user_info"><span class="label">Name:</span>  <span class="label_info">{{ user.full_name }}</span>   </div>
+    <div class="user_info"><span class="label">Email:</span> <span class="label_info"> {{user.email}} </span>       </div> 
+  </div>  
+</div>
+
+
 {% else %}
+<div class="user">
   <h1>My Profile</h1>
+  <div class="user_info_sec">
+    <div class="user_info"><span class="label">Name: </span>   <span class="label_info">{{user.full_name}}</span>     </div>
+    <div class="user_info"><span class="label">Email:</span>   <span class="label_info">{{user.email}}</span>         </div>
+    <div class="user_info"><span class="label">Phone:</span>   <span class="label_info">{{user.phone_number}}</span>  </div>
+    <div class="user_info"><span class="label">Address:</span> <span class="label_info">{{ user.address }}</span>     </div>
+  </div>
+
+</div>
 {% endif %}
 
+<div class="hero">
+  DASHBOARD
+</div>
 
-{% if user.is_authenticated %}
-  <p>Welcome, {{ user.email }}!<p>
+
+<!-- <form method="POST" action="{% url 'delete_user' user.id %}">
+  {% csrf_token %}
+  <button type="submit" name="action" value="delete">Delete</button>
+  <button type="submit" name="action" value="confirm">Confirm</button>
+</form> -->
+{% if user.is_superuser %}
+{% for user in users %}
+  {% if not user.is_superuser %}
+    <div class="user-entry">
+      <div class="label">{{ user.full_name }}</div>
+      <form method="POST" action="{% url 'delete_user' user.id %}">
+        {% csrf_token %}
+        <button class="danger" type="submit">Delete</button>
+      </form>
+    </div>
+  {% endif %}
+{% endfor %}
 {% endif %}
-
-<a href="{% url 'home' %}">home</a>
 </body>
 </html>

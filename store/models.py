@@ -44,3 +44,18 @@ class User(AbstractBaseUser, PermissionsMixin):  # Inherit PermissionsMixin
     # Implement has_perm to return if the user has a specific permission
     def has_perm(self, perm, obj=None):
         return self.is_superuser
+
+
+
+
+# products 
+class Product(models.Model):
+    name = models.CharField(max_length=100)
+    details = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to='product_images/', blank=True, null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    quantity = models.PositiveIntegerField(default=1)
+   
+
+    def __str__(self):
+        return self.name

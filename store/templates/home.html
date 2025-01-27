@@ -1,17 +1,94 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="{% static 'css/home.css'%}">
+  
 </head>
 <body>
-  <h1>Shop</h1>
-  
-  {% if user.is_authenticated %}
-  <a href="logout">Logout</a>
-  {% else %}
-  <a href="/register/">Register</a> | <a href="/login/">Login</a>
+  <nav>
+    <div class="logo" >&#127860; Shop</div>
+      <div class="nav-r">
+        {% if user.is_authenticated %}
+        <a href="user">My Profile</a> 
+        <a href="{% url 'logout' %}">Logout</a>
+        
+        {% else %}
+        <a href="/register/">Register</a>  <a href="/login/">Login</a>
+        {% endif %}
+      </div>  
+  </nav>
+  <div class="hero">
+    HOME
+  </div>
+
+  <div class="products">
+    {% if products %}
+    <ul>
+    {% for product in products %}
+    <li>
+    <div class="product">
+      <div class="product_img"><img src="{{ product.image.url }}" alt=""></div>
+      <div class="product_info">
+        <div class="product_name">{product.name}</div>
+        <div class="product_details"><a href="#">see details</a></div>
+        <div class="product_qty"><button class="sub_product">-</button> <input type="number"> <button class="add_product">+</button></div>
+        <div class="product_price">{product.price} BDT</div>
+        <button class="product_btn">Add to Cart</button>
+      </div>
+    </div>
+    </li>
+    {% endfor %}
   {% endif %}
+
+    <div class="product">
+      <div class="product_img"><img src="" alt=""></div>
+      <div class="product_info">
+        <div class="product_name">Name 2</div>
+        <div class="product_details"><a href="#">see details</a></div>
+        <div class="product_qty"><button class="sub_product">-</button> <input type="number"> <button class="add_product">+</button></div>
+        <div class="product_price">22.85 BDT</div>
+        <button class="product_btn">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    // Select all product containers
+    const products = document.querySelectorAll(".product");
+
+    products.forEach(product => {
+        // Get the relevant elements inside each product
+        const qtyInput = product.querySelector(".product_qty input[type='number']");
+        const incrementButton = product.querySelector(".add_product");
+        const decrementButton = product.querySelector(".sub_product");
+
+        // Set an initial value for the input field
+        qtyInput.value = 0;
+
+        // Add event listeners to the buttons
+        incrementButton.addEventListener("click", () => {
+            qtyInput.value = parseInt(qtyInput.value) + 1;
+        });
+
+        decrementButton.addEventListener("click", () => {
+            const currentValue = parseInt(qtyInput.value);
+            if (currentValue > 0) {
+                qtyInput.value = currentValue - 1;
+            }
+        });
+    });
+});
+
+</script>
 </body>
 </html>
