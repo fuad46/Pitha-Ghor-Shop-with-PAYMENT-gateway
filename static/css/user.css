@@ -92,7 +92,13 @@ h1{
   font-weight: 600;
   font-size: 36px;
 }
-.danger{
-  width: 22px;
+button[type=submit]{
+  width: 44px;
+  height: 24px;
+  padding: 8px 16px;
+}
+body{
+  font-family: "Poppins", serif;
+  font-weight: 400;
 }
 
