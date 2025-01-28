@@ -15,6 +15,7 @@
       font-family: "Poppins", serif;
       font-weight: 400;
     }
+    
     #danger{
       border: none;
       width: 124px;
@@ -32,6 +33,25 @@
     
     }
     #danger:hover{
+      background: #720f12;
+    }
+    #danger2{
+      border: none;
+      width: 124px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 40px;
+      background: #9d0208;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 300;
+      border-radius: 4px;
+      cursor: pointer;
+    
+    }
+    #danger2:hover{
       background: #720f12;
     }
     .user-entry{
@@ -56,6 +76,16 @@
       margin: 8px 0;
       
     }
+    #quantity{
+      display: flex; align-items: center; justify-content: center; width: 120px; height: 40px;
+    }
+    .msg-err{
+      margin-top: 24px;
+      color: #016e32;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   </style>
 </head>
 <body>
@@ -77,6 +107,7 @@
   </nav>
 
 {% if user.is_superuser %}
+
 <div class="user">
   <h1>Admin Profile</h1> 
   
@@ -85,7 +116,11 @@
     <div class="user_info"><span class="label">Email:</span> <span class="label_info"> {{user.email}} </span>       </div> 
   </div>  
 </div>
-
+<div class="msg-err">
+  {% for m in messages %}
+    {{m}}
+  {% endfor %}
+</div>
 
 {% else %}
 <div class="user">
@@ -104,22 +139,85 @@
   DASHBOARD
 </div>
 
-
+{% if user.is_superuser %}
 <div class="user-delete-DB">
   <div style="color: #05002e;"><h2>Customer List</h2></div>
-{% if user.is_superuser %}
-{% for user in users %}
-  {% if not user.is_superuser %}
-    <div class="user-entry">
-      <div class="label">{{ user.full_name }}</div>
-      <form method="POST" action="{% url 'delete_user' user.id %}">
-        {% csrf_token %}
-        <button  type="submit" id="danger">Delete</button>
-      </form>
-    </div>
-  {% endif %}
-{% endfor %}
-{% endif %}
+
+  {% for user in users %}
+    {% if not user.is_superuser %}
+      <div class="user-entry">
+        <div class="label">{{ user.full_name }}</div>
+        <form method="POST" action="{% url 'delete_user' user.id %}">
+          {% csrf_token %}
+          <button  type="submit" name="action" value="del_user" id="danger">Delete</button>
+        </form>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  
+  <!-- add product start -->
+  <h2>Add New Product</h2>
+<form action="{% url 'add_product' %}" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div>
+    <label for="name">Product Name:</label>
+    <input type="text" id="name" name="name" required>
+  </div>
+  <div>
+    <label for="details">Product Details:</label>
+    <textarea id="details" name="details"></textarea>
+  </div>
+  <div>
+    <label for="price">Price:</label>
+    <input type="number" id="price" name="price" step="0.01" required>
+  </div>
+  <div>
+    <label for="quantity">Quantity:</label>
+    <input  type="number" id="quantity" name="quantity" min="1" required>
+  </div>
+  <div>
+    <label for="image">Product Image:</label>
+    <input type="file" id="image" name="image">
+  </div>
+  <button type="submit" name="action" value="add_prod">Add Product</button>
+</form>
+   <!-- add product end  -->
+  <!-- delete product start -->
+
+  <table>
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <!-- <th>Details</th> -->
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <!-- <td>{{ product.details }}</td> -->
+            <td>{{ product.price }}</td>
+            <td>{{ product.quantity }}</td>
+            <td>
+                <!-- Delete Button -->
+                <form action="{% url 'delete_product' product.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" name="action" value="del_prod" id="danger2">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+  <!-- delete product end  -->
+   
 </div>
+{% endif %}
+
+
 </body>
 </html>

@@ -12,7 +12,53 @@
 
   <link rel="stylesheet" href="{% static 'css/home.css'%}">
   
+
+  <style>
+    .product{
+  width: 20%;
+  margin: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+a{
+  color: #0a49a7;
+  text-decoration: underline;
+}
+.product_img{
+  width: 100%;
+  height: 200px;
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+img{
+  width: 80%;
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product_btn{
+  border: none;
+      width: 100%;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0px;
+      background: #0b55aa;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 300;
+      border-radius: 2px;
+      cursor: pointer;
+}
+  </style>
 </head>
+
 <body>
   <nav>
     <div class="logo" >&#127860; Shop</div>
@@ -32,34 +78,27 @@
 
   <div class="products">
     {% if products %}
-    <ul>
+    
     {% for product in products %}
-    <li>
+   
     <div class="product">
       <div class="product_img"><img src="{{ product.image.url }}" alt=""></div>
       <div class="product_info">
-        <div class="product_name">{product.name}</div>
-        <div class="product_details"><a href="#">see details</a></div>
-        <div class="product_qty"><button class="sub_product">-</button> <input type="number"> <button class="add_product">+</button></div>
-        <div class="product_price">{product.price} BDT</div>
+        <div class="product_name">{{product.name}}</div>
+        <div class="product_details"><a href="#">see details</a></div> <br>
+       <div class="product_qty_default"><strong>Unit Quantity:</strong>  {{product.quantity}} Box</div> <br>
+        <div class="txt">Update Quantity</div>
+        <div class="product_qty"><button class="sub_product">-</button> <input type="number" > <button class="add_product">+</button></div><br>
+       
+        <div class="product_price">Price: {{product.price}} BDT</div><br><br><br>
         <button class="product_btn">Add to Cart</button>
       </div>
     </div>
-    </li>
+    
     {% endfor %}
   {% endif %}
 
-    <div class="product">
-      <div class="product_img"><img src="" alt=""></div>
-      <div class="product_info">
-        <div class="product_name">Name 2</div>
-        <div class="product_details"><a href="#">see details</a></div>
-        <div class="product_qty"><button class="sub_product">-</button> <input type="number"> <button class="add_product">+</button></div>
-        <div class="product_price">22.85 BDT</div>
-        <button class="product_btn">Add to Cart</button>
-      </div>
-    </div>
-  </div>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -73,7 +112,7 @@
         const decrementButton = product.querySelector(".sub_product");
 
         // Set an initial value for the input field
-        qtyInput.value = 0;
+        qtyInput.value = 1;
 
         // Add event listeners to the buttons
         incrementButton.addEventListener("click", () => {
@@ -82,9 +121,10 @@
 
         decrementButton.addEventListener("click", () => {
             const currentValue = parseInt(qtyInput.value);
-            if (currentValue > 0) {
+            if (currentValue > 1) {
                 qtyInput.value = currentValue - 1;
             }
+         
         });
     });
 });

@@ -7,7 +7,8 @@ from django.contrib import messages
 
 
 def home(request):
-    return render(request, 'home.html', {})
+    products = Product.objects.all()
+    return render(request, 'home.html', {'products':products})
 
 def register(request):
     if request.method == 'POST':
@@ -50,7 +51,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return render(request, 'home.html')
+    return render(request, 'home.html',{})
 
 @login_required
 def user_view(request):
@@ -60,7 +61,8 @@ def user_view(request):
 @login_required
 def user_view(request):
     users = User.objects.all()
-    return render(request, 'user.html', {'users': users})
+    products = Product.objects.all()
+    return render(request, 'user.html', {'users': users, 'products': products})
 
 # product 
 
@@ -72,24 +74,67 @@ def product_list(request):
 
 @login_required
 def delete_user(request, user_id):
-    """
-    Deletes a user if the logged-in user has the appropriate permissions.
-    Superusers cannot be deleted via this function.
-    """
+ 
     if request.method == "POST":
-        # Fetch the user to be deleted or return a 404 if not found
+        action = request.POST.get('action')
+        # Fetch the user to be deleted
         user_to_delete = get_object_or_404(User, pk=user_id)
-
-        # Check if the user is a superuser
-        if not user_to_delete.is_superuser:
-            # Perform the delete operation
-            user_to_delete.delete()
-            messages.success(request, f"User {user_to_delete.full_name} deleted successfully.")
-        else:
-            # Prevent deletion of superusers
-            messages.error(request, "Cannot delete a superuser.")
+        if action=='del_user':
+       
+            if not user_to_delete.is_superuser:
+                #  delete operation
+                user_to_delete.delete()
+                messages.success(request, f"Account: {user_to_delete.full_name} deleted successfully.")
+            else:
+            
+                messages.error(request, "Cannot delete a superuser.")
     else:
-        # If the request is not POST, redirect to the home page
+ 
         messages.error(request, "Invalid request method.")
 
-    return redirect('user')  # Replace 'home' with your actual homepage U
+    return redirect('user')  
+
+# add_products 
+@login_required
+def add_product(request):
+    if not request.user.is_staff:
+        messages.error(request, "You do not have permission to add products.")
+        return redirect('home')
+    
+
+    if request.method == "POST":
+        action = request.POST.get('action')
+        if action=='add_prod':
+            name = request.POST.get('name')
+            details = request.POST.get('details')
+            price = request.POST.get('price')
+            quantity = request.POST.get('quantity')
+            image = request.FILES.get('image')  
+            if not name or not price or not quantity:
+                messages.error(request, "Name, Price, and Quantity are required fields.")
+                return redirect('user')  
+            
+            try:
+                product = Product.objects.create(
+                    name=name,
+                    details=details,
+                    price=price,
+                    quantity=quantity,
+                    image=image,
+                )
+                product.save()
+                messages.success(request, f"Product '{product.name}' added successfully.")
+            except Exception as e:
+                messages.error(request, f"Error adding product: {str(e)}")
+    
+    return redirect('user')
+
+def delete_product(request,product_id):
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        product_to_delete = get_object_or_404(Product, pk=product_id)
+        if action=='del_prod':
+            product_to_delete.delete()
+            messages.success(request, f"Product '{product_to_delete.name}' deleted successfully.")
+            return redirect('user')
+    return redirect('user')
