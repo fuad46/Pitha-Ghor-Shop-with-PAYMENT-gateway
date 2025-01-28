@@ -60,13 +60,13 @@ a:hover{
 }
 .products{
   display: flex;
-  width: 80%;
+  width: 100%;
   margin-top: 40px;
 
 
 }
 .product{
-  width: 20%;
+  width: 25%;
   margin: 40px;
   display: flex;
   flex-direction: column;

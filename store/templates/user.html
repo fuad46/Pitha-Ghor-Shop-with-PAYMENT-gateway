@@ -14,8 +14,11 @@
     body{
       font-family: "Poppins", serif;
       font-weight: 400;
-    }
     
+    }
+    .hero{
+      height: 8.4rem;
+    }
     #danger{
       border: none;
       width: 124px;
@@ -86,6 +89,81 @@
       align-items: center;
       justify-content: center;
     }
+  #products  {
+  
+  border-collapse: collapse;
+    width: 80%;
+  }
+
+  #products  td, #products th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  /* #products tr:nth-child(even){background-color: #f2f2f2;} */
+
+  #products  tr:hover {background-color: #ddd;}
+
+  #products  th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #003049;
+    color: white;
+  }
+  .input-p, select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#add-p {
+  width: 100%;
+  height: 40px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin-bottom: 40px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins';
+  font-size: 18px;
+}
+
+#add-p:hover {
+  background-color: #45a049;
+  
+}
+
+#form-p{
+  background: #003049;
+  padding: 24px;
+  color: #fff;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#table-p{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#product-ops{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
   </style>
 </head>
 <body>
@@ -141,7 +219,7 @@
 
 {% if user.is_superuser %}
 <div class="user-delete-DB">
-  <div style="color: #05002e;"><h2>Customer List</h2></div>
+  <div ><h2>Customer List</h2></div>
 
   {% for user in users %}
     {% if not user.is_superuser %}
@@ -158,34 +236,37 @@
   
   <!-- add product start -->
   <h2>Add New Product</h2>
+  <div id="product-ops"> 
+  <div id="form-p">
 <form action="{% url 'add_product' %}" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <div>
     <label for="name">Product Name:</label>
-    <input type="text" id="name" name="name" required>
+    <input class="input-p" type="text" id="name" name="name" required>
   </div>
   <div>
     <label for="details">Product Details:</label>
-    <textarea id="details" name="details"></textarea>
+    <textarea class="input-p" id="details" name="details"></textarea>
   </div>
   <div>
     <label for="price">Price:</label>
-    <input type="number" id="price" name="price" step="0.01" required>
+    <input class="input-p" type="number" id="price" name="price" step="0.01" required>
   </div>
   <div>
     <label for="quantity">Quantity:</label>
-    <input  type="number" id="quantity" name="quantity" min="1" required>
+    <input class="input-p"  type="number" id="quantity" name="quantity" min="1" required>
   </div>
   <div>
     <label for="image">Product Image:</label>
-    <input type="file" id="image" name="image">
+    <input class="input-p" type="file" id="image" name="image">
   </div>
-  <button type="submit" name="action" value="add_prod">Add Product</button>
+  <button id="add-p" type="submit" name="action" value="add_prod">Add Product</button>
 </form>
+</div>
    <!-- add product end  -->
   <!-- delete product start -->
-
-  <table>
+<div id="table-p">
+  <table  id="products">
     <thead>
         <tr>
             <th>Product Name</th>
@@ -213,8 +294,10 @@
         {% endfor %}
     </tbody>
 </table>
+</div>
   <!-- delete product end  -->
    
+</div>
 </div>
 {% endif %}
 
