@@ -14,16 +14,39 @@
   
 
 <style>
+  body{
+  font-family: "Poppins", serif;
+  font-weight: 400;
+  background-color: #f8fafd;
+  margin: 0;
+  padding: 0;
+}
+  .product_qty{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .products{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    padding: 40px 0px;
+    box-shadow:  5px 5px 15px rgba(0, 0, 0, 0.3);
+    height: 600px;
+    border-radius: 32px 32px 0 0;
+  }
 .product{
   width: 25%;
-  margin: 40px;
+  margin: 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 a{
-  color: #0a49a7;
+  color: #02000f;
 
 }
 .product_img{
@@ -35,26 +58,32 @@ a{
   justify-content: center;
 }
 img{
-  width: 80%;
-  height: 240px;
-  display: flex;
+  width: 80%; height: 240px; display: flex;
   align-items: center;
   justify-content: center;
 }
 .product_btn{
   border: none;
-      width: 100%;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 100%;height: 44px;
+      display: flex;align-items: center;justify-content: center;
       padding: 0px;
-      background: #0b55aa;
-      color: #fff;
-      font-size: 18px;
-      font-weight: 300;
-      border-radius: 2px;
+      background: #0b55aa;color: #fff;
+      font-size: 18px;font-weight: 300;border-radius: 2px;
       cursor: pointer;
+}
+button[type=button]{
+  width: 40px; height: 40px; 
+  display: flex; align-items: center; justify-content: center; font-size: 22px; background-color: #03305f;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+button[type=button]:hover{
+  background-color: #0a49a7;
+}
+input[type=number]{
+  height: 38px;
+ 
 }
   </style>
 </head>
@@ -83,31 +112,16 @@ img{
     
     {% for product in products %}
    
-    <!-- <div class="product">
-      <div class="product_img"><img src="{{ product.image.url }}" alt=""></div>
-      <div class="product_info">
-        <div class="product_name">{{product.name}}</div>
-        <div class="product_details"><a href="#">see details</a></div> <br>
-       <div class="product_qty_default"><strong>Unit Quantity:</strong>  {{product.quantity}} Box</div> <br>
-        <div class="txt">Update Quantity</div>
-        <div class="product_qty">
-          <button type="button" class="sub_product">-</button> 
-          <input type="number" name="quantity" min="1" required> 
-          <button type="button" class="add_product">+</button></div><br>
-       
-        <div class="product_price">Price: {{product.price}} BDT</div><br><br><br>
-        <button class="product_btn">Add to Cart</button>
-      </div>
-    </div>
-     -->
 
      <div class="product">
       <div class="product_img"><img src="{{ product.image.url }}" alt=""></div>
       <div class="product_info">
-          <div class="product_name">{{ product.name }}</div>
-          <div class="product_details"><a href="#">see details</a></div> <br>
-          <div class="product_qty_default"><strong>Unit Quantity:</strong> {{ product.quantity }} Box</div> <br>
-          <div class="txt">Update Quantity</div>
+          <div class="product_name" style="color: #011427; font-size: 26px;">{{ product.name }}</div>
+          <div class="product_details" >
+            <a href="#" style="color: #474747; font-size: 16px;">see details ></a>
+          </div> <br>
+          <div class="product_qty_default"><span style="color: #404041; font-size: 18px;">Unit Quantity: {{ product.quantity }} Box </span></div> <br>
+          <div class="txt" style="color: #03305f; font-size: 20px;">Update Quantity</div>
           <form action="{% url 'save_product' product.id %}" method="post">
               {% csrf_token %}
               <div class="product_qty">
@@ -116,9 +130,9 @@ img{
                   <button type="button" class="add_product">+</button>
               </div>
               <br>
-              <div class="product_price">Price: {{ product.price }} BDT</div>
+              <div class="product_price"><h4 style="color: #02162c;">Price: {{ product.price }} BDT</h4>  </div>
               <div class="new_price"></div>
-              <button type="submit" class="product_btn">Save</button>
+              <button type="submit" class="product_btn">Add To Cart</button>
           </form>
       </div>
   </div>

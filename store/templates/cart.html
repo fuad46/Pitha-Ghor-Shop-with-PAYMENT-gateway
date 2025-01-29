@@ -5,14 +5,92 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Add to cart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/cart.css'%}">
+  <style>
+
+body{
+  background-color: #f1f8ff;
+  font-family: 'Poppins';
+}
+a{
+  color: #02000f;
+
+}
+nav{
+  width: 100%;
+  display: flex;
+ align-items: center;
+ /* justify-content: center; */
+ justify-content: center;
+ margin: 40px 0 40px 0;
+
+
+ 
+ }
+ #buy-btn{
+  width: 100%;
+  display: flex;
+  border-radius: 0;
+ }
+ #del-cart{
+  width: 100%;
+  background: #720f12;
+
+ }
+ #logo{
+
+  color: #415a77;
+  font-weight: 800;
+  font-size: 24px;
+
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+ }
+ .nav-r{
+  width: 100%;
+  display: flex;
+ align-items: center;
+
+ justify-content: center;
+ margin: 40px 0 40px 0;}
+.f{
+  width: 100%;
+  display: flex;
+}
+.form-sec-action{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0px;
+}
+ .products{
+  width: 100%;
+ padding: 40px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9fcff;
+  border-radius: 16px;
+  box-shadow: 5px 5px 15px rgba(79, 97, 119, 0.3);
+ }
+  </style>
 </head>
 <body>
-  <div class="logo" >&#127860; Shop</div>
+  <nav>
+  <div id="logo" >&#127860; Shop</div>
   <div class="nav-r">
     {% if user.is_authenticated %}
-    <a href="user">My Profile</a> 
+    <a href="/user/">My Profile</a> 
     
-    <a href="{% url 'home'%}">Go Back</a>  
+    <a href="{% url 'home'%}">Buy More</a>  
     
     {% else %}
     <a href="/register/">Register</a>  <a href="/login/">Login</a>
@@ -20,14 +98,19 @@
     {% endif %}
   </div>  
 </nav>
-  <h1>My CART</h1>
+<h1 style="display: flex; justify-content: center; align-items: center; color: #02000f;">{{user.full_name}}'s CART</h1>
+
+<div class="products">
   {% for item in saved_items %}
-  <div class="product">
+  
+  
+  <!-- <div class="product">
+
     <div class="product_img"><img src="{{ item.product.image.url }}" alt=""></div>
     <div class="product_info">
         <div class="product_name">{{ item.product.name }}</div>
         <div class="product_details"><a href="#">see details</a></div> <br>
-        <div class="product_qty_default"><strong>Unit Quantity:</strong> {{ item.quantity }} Box</div> <br>
+        <div class="product_qty_default"><strong>Your Quantity:</strong> {{ item.quantity }} Box</div> <br>
         <div class="txt">Update Quantity</div>
         
             {% csrf_token %}
@@ -37,12 +120,71 @@
                 <button type="button" class="add_product">+</button>
             </div>
             <br>
-            <div class="product_price">Price: {{ item.total_price }} BDT</div>
+            <div class="product_price">Price: {{ item.new_price }} BDT</div>
             <div class="new_price"></div>
             <button type="submit" class="product_btn">Buy</button>
         </form>
     </div>
+</div> -->
+
+<div class="product">
+  <div class="product_img"><img src="{{ item.product.image.url }}" alt=""></div>
+  <div class="product_info">
+      <div class="product_name">{{ item.product.name }}</div>
+      <div class="product_details"><a href="#">see details</a></div> <br>
+      <div class="product_qty_default"><strong>Unit Quantity:</strong> {{ item.quantity }} Box</div> <br>
+      <div class="product_price">PAY: {{ item.new_price }} BDT</div><br>
+      {% csrf_token %}
+      <div class="txt">Update Quantity</div>
+      <div class="product_qty">
+          <button type="button" class="sub_product">-</button>
+          <input type="number" name="quantity" min="1" required>
+          <button type="button" class="add_product">+</button>
+      </div>
+      <div class="form-sec-action">
+      <form class="f" method="POST">
+          {% csrf_token %}
+          <button id="buy-btn" type="submit" name="action" value="keep-item" class="product_btn">Buy</button>
+      </form>
+
+      <form class="f" method="POST" action="{% url 'delete_saved_product' item.id %}">
+          {% csrf_token %}
+          <button id="del-cart" type="submit" class="product_btn">Delete</button>
+      </form>
+    </div>
+  </div>
 </div>
 {% endfor %}
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  // Select all product containers
+  const products = document.querySelectorAll(".product");
+
+  products.forEach(product => {
+      // Get the relevant elements inside each product
+      const qtyInput = product.querySelector(".product_qty input[type='number']");
+      const incrementButton = product.querySelector(".add_product");
+      const decrementButton = product.querySelector(".sub_product");
+
+      // Set an initial value for the input field
+      qtyInput.value = 1;
+
+      // Add event listeners to the buttons
+      incrementButton.addEventListener("click", () => {
+          qtyInput.value = parseInt(qtyInput.value) + 1;
+      });
+
+      decrementButton.addEventListener("click", () => {
+          const currentValue = parseInt(qtyInput.value);
+          if (currentValue > 1) {
+              qtyInput.value = currentValue - 1;
+          }
+       
+      });
+  });
+});
+
+</script>
 </body>
 </html>

@@ -139,7 +139,6 @@ def delete_product(request,product_id):
             return redirect('user')
     return redirect('user')
 
-# add to cart 
 @login_required
 def save_product(request, product_id):
     product = get_object_or_404(Product, id=product_id)
@@ -166,8 +165,15 @@ def save_product(request, product_id):
         messages.success(request, f"Product '{product.name}' saved successfully.")
     return redirect('cart')
 
-# get from cart database 
+
 @login_required
 def saved_products(request):
     saved_items = Storage1.objects.filter(user=request.user) 
     return render(request, 'cart.html', {'saved_items': saved_items})
+
+@login_required
+def delete_saved_product(request, item_id):
+    item = get_object_or_404(Storage1, id=item_id, user=request.user) 
+    item.delete()
+    messages.success(request, "Item deleted successfully.")
+    return redirect('cart')
