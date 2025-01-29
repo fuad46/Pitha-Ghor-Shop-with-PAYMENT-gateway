@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add to cart</title>
+</head>
+<body>
+  <div class="logo" >&#127860; Shop</div>
+  <div class="nav-r">
+    {% if user.is_authenticated %}
+    <a href="user">My Profile</a> 
+    
+    <a href="{% url 'home'%}">Go Back</a>  
+    
+    {% else %}
+    <a href="/register/">Register</a>  <a href="/login/">Login</a>
+    
+    {% endif %}
+  </div>  
+</nav>
+  <h1>My CART</h1>
+  {% for item in saved_items %}
+  <div class="product">
+    <div class="product_img"><img src="{{ item.product.image.url }}" alt=""></div>
+    <div class="product_info">
+        <div class="product_name">{{ item.product.name }}</div>
+        <div class="product_details"><a href="#">see details</a></div> <br>
+        <div class="product_qty_default"><strong>Unit Quantity:</strong> {{ item.quantity }} Box</div> <br>
+        <div class="txt">Update Quantity</div>
+        
+            {% csrf_token %}
+            <div class="product_qty">
+                <button type="button" class="sub_product">-</button>
+                <input type="number" name="quantity" min="1" required>
+                <button type="button" class="add_product">+</button>
+            </div>
+            <br>
+            <div class="product_price">Price: {{ item.total_price }} BDT</div>
+            <div class="new_price"></div>
+            <button type="submit" class="product_btn">Buy</button>
+        </form>
+    </div>
+</div>
+{% endfor %}
+</body>
+</html>

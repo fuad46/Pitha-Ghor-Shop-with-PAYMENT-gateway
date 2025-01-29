@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import User, Product
+from .models import User, Product, Storage1
 from django.contrib import messages
 
 
@@ -138,3 +138,36 @@ def delete_product(request,product_id):
             messages.success(request, f"Product '{product_to_delete.name}' deleted successfully.")
             return redirect('user')
     return redirect('user')
+
+# add to cart 
+@login_required
+def save_product(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    if request.method == 'POST':
+        quantity = request.POST.get('quantity')
+        if not quantity or int(quantity) <= 0:
+            messages.error(request, 'Should Keep Atleast One Product')
+            return redirect('home')
+        
+        quantity = int(quantity)
+        new_price = quantity*product.price
+
+        storage_entry, created = Storage1.objects.get_or_create(
+                user = request.user,
+                product = product,
+                defaults={'quantity': quantity, 'new_price': new_price}
+        )
+
+        if not created:
+            storage_entry.quantity = quantity
+            storage_entry.new_price = new_price
+            storage_entry.save()
+
+        messages.success(request, f"Product '{product.name}' saved successfully.")
+    return redirect('cart')
+
+# get from cart database 
+@login_required
+def saved_products(request):
+    saved_items = Storage1.objects.filter(user=request.user) 
+    return render(request, 'cart.html', {'saved_items': saved_items})
