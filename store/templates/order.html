@@ -1,62 +1,83 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
+  <title>Orders</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
   
+  <link rel="stylesheet" href="{% static 'css/order.css' %}">
 
-<h2>Your Orders</h2>
+
+
+</head>
+
+<body>
+    <div class="hero">
+        {{ user.full_name }}'s Buying List
+       </div>
+    <nav>
+    <div class="logo" >&#127860; Shop</div>
+    <div class="nav-r">
+        <a href="{% url 'user' %}">My Profile</a>
+    </div>
+    
+    </nav>
+   
 
 {% if orders %}
-<table>
-    <thead>
-        <tr>
+<div class="table-sec1">
+    <h2>My Orders</h2>
+<div class="table">
+    <div class="thead">
+        <div class="tr">
           
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Status</th>
-            <th>Order Date</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
+            <div class="th">Product</div>
+            <div class="th">Quantity</div>
+            <div class="th">Price</div>
+            <div class="th">Status</div>
+            <div class="th">Order Date</div>
+            <div class="th">CASH PAY</div>
+        </div>
+    </div>
+    <div class="tbody">
         {% for order in orders %}
-        <tr>
+        <div class="tr1">
        
-            <td>{{ order.product.name }}</td>
-            <td>{{ order.quantity }}</td>
-            <td>${{ order.price }}</td>
-            <td>{{ order.status }}</td>
-            <td>{{ order.order_date }}</td>
-            <td>
-            <form method="POST" action="{% url 'orders' user_id=order.user.id%}">
-                {% csrf_token %}
-                <input type="hidden" name="order_id" value="{{ order.id }}">
-                {% if order.status == "pending" %}
-                    <!-- <button type="submit" name="action" value="pay_order" class="btn btn-primary">Pay</button> -->
-                     
-                    <form method="POST" action="{% url 'orders' user_id=user.id %}">
-                        {% csrf_token %}
-                        <input type="hidden" name="order_id" value="{{ order.id }}">
-                        {% if order.status == "pending" %}
-                            <button type="submit" name="action" value="pay_order" class="btn btn-primary">Pay</button>
-                        {% else %}
-                            <span>Paid</span>
-                        {% endif %}
-                    </form>
-                {% else %}
-                    <span>Paid</span>
-                {% endif %}
-            </form>
-            </td>
-        </tr>
+            <div class="td">{{ order.product.name }}</div>
+            <div class="td">{{ order.quantity }}</div>
+            <div class="td">{{ order.price }}</div>
+            <div class="td">{{ order.status }}</div>
+            <div class="td">{{ order.order_date }}</div>
+            <div class="td">
+                <form method="POST" action="{% url 'orders' user_id=order.user.id%}">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="{{ order.id }}">
+                    {% if order.status == "pending" %}
+                        <!-- <button type="submit" name="action" value="pay_order" class="btn btn-primary">Pay</button> -->
+                        
+                        <form method="POST" action="{% url 'orders' user_id=user.id %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="order_id" value="{{ order.id }}">
+                            {% if order.status == "pending" %}
+                                <button type="submit" name="action" value="pay_order" class="btn btn-primary btn-pay">Pay</button>
+                            {% else %}
+                                <span>Paid</span>
+                            {% endif %}
+                        </form>
+                    {% else %}
+                        <span>Paid</span>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
         {% endfor %}
-    </tbody>
-</table>
+    </div>
+</div>
+</div>
 {% else %}
 <p>You have no orders yet.</p>
 {% endif %}
@@ -66,50 +87,59 @@
 
 {% if user.is_superuser %}
 
-<h2>All Orders (Admin Panel)</h2>
+
 
 {% if orders %}
-<table>
-    <thead>
-        <tr>
-            <th>Order ID</th>
-            <th>User</th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Status</th>
-            <th>Order Date</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="table-sec2">
+    <h2>All Orders - Admin Panel</h2>
+<div class="table">
+    <div class="thead">
+        <div class="tr">
+            <div class="th">Order ID</div>
+            <div class="th">Customer</div>
+            <div class="th">Product</div>
+            <div class="th">Quantity</div>
+            <div class="th">Amount</div>
+            <div class="th">Status</div>
+            <div class="th">Order Date</div>
+            <div class="th-actions">Actions</div>
+        </div>
+    </div>
+    <div class="tbody">
         {% for order in orders %}
-        <tr>
-            <td>{{ order.id }}</td>
-            <td>{{ order.user.full_name }}</td>
-            <td>{{ order.product.name }}</td>
-            <td>{{ order.quantity }}</td>
-            <td>${{ order.price }}</td>
-            <td>{{ order.status }}</td>
-            <td>{{ order.order_date }}</td>
-            <td>
-                <form method="POST" action="{% url 'admin_orders' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="order_id" value="{{ order.id }}">
-                    <button type="submit" name="action" value="confirm_order" class="btn btn-success">Confirm</button>
-                    <button type="submit" name="action" value="cancel_order" class="btn btn-warning">Cancel</button>
-                    <!-- <button type="submit" name="action" value="delete_order" class="btn btn-danger">Delete</button> -->
-                    <form method="POST" action="{% url 'delete_order' order_id=order.id %}">
+        <div class="tr">
+            <div class="td">{{ order.id }}</div>
+            <div class="td">{{ order.user.full_name }}</div>
+            <div class="td">{{ order.product.name }}</div>
+            <div class="td">{{ order.quantity }}</div>
+            <div class="td">{{ order.price }}</div>
+            <div class="td">{{ order.status }}</div>
+            <div class="td">{{ order.order_date }}</div>
+            <!-- action start  -->
+            <div class="td">
+                <div class="actions">
+                    <form method="POST" action="{% url 'admin_orders' %}">
                         {% csrf_token %}
-                        <button type="submit" name="action" value="delete_order" class="btn btn-danger">Delete</button>
+                        <div class="actions-l">
+                        <input type="hidden" name="order_id" value="{{ order.id }}">
+                        <button type="submit" name="action" value="confirm_order" class="btn btn-success">Confirm</button>
+                        <button type="submit" name="action" value="cancel_order" class="btn btn-warning">Cancel</button>
+                        </div>
                     </form>
-                    <!-- --- -->
-                </form>
-            </td>
-        </tr>
+                    <div class="actions-r">
+                        <form method="POST" action="{% url 'delete_order' order_id=order.id %}">
+                            {% csrf_token %}
+                            <button type="submit" name="action" value="delete_order" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+             <!-- action ends  -->
+        </div>
         {% endfor %}
-    </tbody>
-</table>
+    </div>
+</div>
+</div>
 {% else %}
 <p>No orders found.</p>
 {% endif %}

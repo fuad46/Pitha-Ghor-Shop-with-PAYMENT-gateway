@@ -32,7 +32,7 @@ urlpatterns = [
   path('order/', views.see_orders, name='see_orders'),
   # path('orders/<int:user_id>/', views.see_orders, name='orders'),
   path('orders/<int:user_id>/', views.see_orders, name='orders'),
-  path('order/admin/', views.admin_orders, name='admin_orders'),
-  path('order/<int:order_id>/pay/', views.pay_order, name='pay_order'),
-  path('order/<int:order_id>/delete/', views.admin_orders, name='delete_order'),
+  path('orders/admin/', views.admin_orders, name='admin_orders'),
+  path('orders/<int:order_id>/pay/', views.pay_order, name='pay_order'),
+  path('orders/<int:order_id>/delete/', views.delete_order, name='delete_order'),
 ]

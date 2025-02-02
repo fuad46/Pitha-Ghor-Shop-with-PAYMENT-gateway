@@ -326,7 +326,7 @@ def see_orders(request, user_id):
 
         if action == "pay_order":
             order = Order.objects.get(id=order_id, user=user)  # Ensure order belongs to user
-            order.status = "paid"
+            order.status = "Paid"
             order.save()
 
     return render(request, "order.html", {"orders": orders})
@@ -342,7 +342,7 @@ def pay_order(request, order_id):
         order.save()
         messages.success(request, f"Order {order.id} marked as 'Paid'.")
 
-    return redirect('order')
+    return redirect('order', {"orders": orders})
 
 
 @user_passes_test(lambda u: u.is_superuser)
@@ -356,10 +356,10 @@ def admin_orders(request):
         order = get_object_or_404(Order, id=order_id)
 
         if action == "confirm_order":
-            order.status = "confirmed"
+            order.status = "Confirmed"
             
         elif action == "cancel_order":
-            order.status = "cancelled"
+            order.status = "Cancelled"
         # elif action == "delete_order":
         #     order.delete()
         #     return redirect('order')
@@ -372,12 +372,14 @@ def admin_orders(request):
 @user_passes_test(lambda u: u.is_superuser)
 
 def delete_order(request, order_id):
+    order = get_object_or_404(Order, id=order_id,)
     if request.method == 'POST':
-        order = get_object_or_404(Order, id=order_id,)
+        
         action = request.POST.get('action')
         if action=='delete_order':
       
            
             order.delete()
+        
             messages.success(request, f"Order {order_id} deleted successfully.")
-            return redirect('order.html') 
+    return redirect('admin_orders') 
