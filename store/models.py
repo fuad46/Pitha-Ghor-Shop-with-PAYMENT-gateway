@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
+from django.contrib.auth import get_user_model
+from django.utils.timezone import now
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -69,4 +71,28 @@ class Storage1(models.Model):
 
     def __str__(self):
         return f"{self.product.name} - {self.user.full_name}"
+    
+
+User = get_user_model()
+
+class Order(models.Model):
+    STATUS_CHOICES = (
+        ('pending', 'Pending'),
+        ('paid', 'Paid'),
+        ('confirm', 'Confirm'),
+        ('cancel', 'Cancel'),
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    order_date = models.DateTimeField(auto_now_add=True)
+    
+    
+    def __str__(self):
+        return f"Order {self.id} by {self.user.full_name} - {self.product.name}"
+
+
+
 

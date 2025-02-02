@@ -114,7 +114,7 @@ input[type=number]{
    
 
      <div class="product">
-      <div class="product_img"><img src="{{ product.image.url }}" alt=""></div>
+      <div class="product_img"><img src="{{ product.image.url }}" alt="img" ></div>
       <div class="product_info">
           <div class="product_name" style="color: #011427; font-size: 26px;">{{ product.name }}</div>
           <div class="product_details" >
@@ -136,10 +136,12 @@ input[type=number]{
           </form>
       </div>
   </div>
-  
+
     {% endfor %}
   {% endif %}
+  </div>
 
+ 
 
 
 <script>

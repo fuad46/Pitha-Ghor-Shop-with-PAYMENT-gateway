@@ -14,7 +14,7 @@
     body{
       font-family: "Poppins", serif;
       font-weight: 400;
-    
+      background-color: #FFFFFF;
     }
     .hero{
       height: 8.4rem;
@@ -157,12 +157,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+ 
 }
 #product-ops{
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: #FFFFFF;
+  box-shadow: 0px 4px 10px rgba(46, 46, 48, 0.2)
+
 }
   </style>
 </head>
@@ -176,7 +180,7 @@
         <a href="% url 'logout' %">Logout</a> -->
         <a href="{% url 'logout' %}">Logout</a>
         <a href="{% url 'home' %}">Go Home</a>
-       
+        <a href="{% url 'orders' user_id=user.id %}">Orders</a>
    
         {% else %}
         <a href="/register/">Register</a>  <a href="/login/">Login</a>
@@ -300,6 +304,16 @@
 </div>
 </div>
 {% endif %}
+
+<h2> </h2>
+
+
+    </tbody>
+</table>
+
+
+
+
 
 
 </body>

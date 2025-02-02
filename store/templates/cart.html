@@ -81,6 +81,13 @@ nav{
   border-radius: 16px;
   box-shadow: 5px 5px 15px rgba(79, 97, 119, 0.3);
  }
+ .msg-err{
+      margin-top: 24px;
+      color: #016e32;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   </style>
 </head>
 <body>
@@ -90,7 +97,7 @@ nav{
     {% if user.is_authenticated %}
     <a href="/user/">My Profile</a> 
     
-    <a href="{% url 'home'%}">Buy More</a>  
+    <a href="{% url 'home'%}">Go Home</a>  
     
     {% else %}
     <a href="/register/">Register</a>  <a href="/login/">Login</a>
@@ -98,55 +105,34 @@ nav{
     {% endif %}
   </div>  
 </nav>
-<h1 style="display: flex; justify-content: center; align-items: center; color: #02000f;">{{user.full_name}}'s CART</h1>
-
+<h1 style="display: flex; justify-content: center; align-items: center; color: #04001f;">{{user.full_name}}'s CART</h1><br><br><br>
+<div class="msg-err">
+  {% for m in messages %}
+    {{m}}
+  {% endfor %}
+</div>
 <div class="products">
+  {% if saved_items %}
   {% for item in saved_items %}
-  
-  
-  <!-- <div class="product">
-
-    <div class="product_img"><img src="{{ item.product.image.url }}" alt=""></div>
-    <div class="product_info">
-        <div class="product_name">{{ item.product.name }}</div>
-        <div class="product_details"><a href="#">see details</a></div> <br>
-        <div class="product_qty_default"><strong>Your Quantity:</strong> {{ item.quantity }} Box</div> <br>
-        <div class="txt">Update Quantity</div>
-        
-            {% csrf_token %}
-            <div class="product_qty">
-                <button type="button" class="sub_product">-</button>
-                <input type="number" name="quantity" min="1" required>
-                <button type="button" class="add_product">+</button>
-            </div>
-            <br>
-            <div class="product_price">Price: {{ item.new_price }} BDT</div>
-            <div class="new_price"></div>
-            <button type="submit" class="product_btn">Buy</button>
-        </form>
-    </div>
-</div> -->
-
 <div class="product">
   <div class="product_img"><img src="{{ item.product.image.url }}" alt=""></div>
   <div class="product_info">
       <div class="product_name">{{ item.product.name }}</div>
-      <div class="product_details"><a href="#">see details</a></div> <br>
-      <div class="product_qty_default"><strong>Unit Quantity:</strong> {{ item.quantity }} Box</div> <br>
+      <div class="product_details"><a href="#">see details ></a></div> <br>
+      <div class="product_qty_default"><strong>Your Quantity:</strong> {{ item.quantity }} Box</div> <br>
       <div class="product_price">PAY: {{ item.new_price }} BDT</div><br>
-      {% csrf_token %}
+      <!-- {% csrf_token %}
       <div class="txt">Update Quantity</div>
       <div class="product_qty">
           <button type="button" class="sub_product">-</button>
           <input type="number" name="quantity" min="1" required>
           <button type="button" class="add_product">+</button>
-      </div>
+      </div> -->
       <div class="form-sec-action">
-      <form class="f" method="POST">
+        <form class="f" method="POST" action="{% url 'buy_item' item.id %}">
           {% csrf_token %}
-          <button id="buy-btn" type="submit" name="action" value="keep-item" class="product_btn">Buy</button>
+          <button id="buy-btn" type="submit" name="action" value="keep-item" class="product_btn">BUY</button>
       </form>
-
       <form class="f" method="POST" action="{% url 'delete_saved_product' item.id %}">
           {% csrf_token %}
           <button id="del-cart" type="submit" class="product_btn">Delete</button>
@@ -155,6 +141,9 @@ nav{
   </div>
 </div>
 {% endfor %}
+{% else %}
+<H1 style="color: #010b38;">EMPTY CART</H1> <a href="{% url 'home'%}">Add Products -></a>  
+{% endif %} 
 </div>
 <script>
   document.addEventListener("DOMContentLoaded", () => {

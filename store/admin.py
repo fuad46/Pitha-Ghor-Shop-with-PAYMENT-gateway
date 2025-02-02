@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Product, Storage1
+from .models import User, Product, Storage1, Order
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
@@ -16,3 +16,15 @@ class Storage1Admin(admin.ModelAdmin):
     list_display = ['user', 'product', 'quantity', 'new_price']
     search_fields = ['user__ful_name', 'product__name']
     list_filter = ['user']
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user', 'product', 'quantity', 'price', 'status', 'order_date']
+    list_filter = ['status', 'order_date']
+    search_fields = ['user__full_name', 'product__name']
+    ordering = ('-order_date',)
+    list_editable = ('status',)  
+
+
+
