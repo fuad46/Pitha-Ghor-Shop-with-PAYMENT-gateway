@@ -99,7 +99,7 @@ nav{
     <a href="/user/">My Profile</a> 
     
     <a href="{% url 'home'%}">Go Home</a>  
-    
+    <a href="{% url 'orders' user_id=user.id %}">Orders</a>
     {% else %}
     <a href="/register/">Register</a>  <a href="/login/">Login</a>
     
