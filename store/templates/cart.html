@@ -75,6 +75,7 @@ nav{
   width: 100%;
  padding: 40px 0;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   background-color: #f9fcff;
@@ -117,10 +118,11 @@ nav{
 <div class="product">
   <div class="product_img"><img src="{{ item.product.image.url }}" alt=""></div>
   <div class="product_info">
-      <div class="product_name">{{ item.product.name }}</div>
-      <div class="product_details"><a href="{% url 'details' item.product.id %}">see details ></a></div> <br>
-      <div class="product_qty_default"><strong>Your Quantity:</strong> {{ item.quantity }} Box</div> <br>
-      <div class="product_price">PAY: {{ item.new_price }} BDT</div><br>
+      <div class="product_name" style="font-size: 1.6rem; font-weight: 500;">{{ item.product.name }}</div>
+      <div class="product_details">
+        <a  style="font-size: 1rem; font-weight: 400;" href="{% url 'details' item.product.id %}">see details ></a></div> <br>
+      <div class="product_qty_default" style="font-size: 1.2rem; font-weight: 400;"><strong>Your Quantity:</strong> {{ item.quantity }} Box</div> <br>
+      <div class="product_price" style="font-size: 1.4rem; font-weight: 500;">PAY: {{ item.new_price }} BDT</div><br>
    
       <div class="form-sec-action">
         <form class="f" method="POST" action="{% url 'buy_item' item.id %}">
@@ -139,35 +141,6 @@ nav{
 <H1 style="color: #010b38;">EMPTY CART</H1> <a href="{% url 'home'%}">Add Products -></a>  
 {% endif %} 
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-  // Select all product containers
-  const products = document.querySelectorAll(".product");
 
-  products.forEach(product => {
-      // Get the relevant elements inside each product
-      const qtyInput = product.querySelector(".product_qty input[type='number']");
-      const incrementButton = product.querySelector(".add_product");
-      const decrementButton = product.querySelector(".sub_product");
-
-      // Set an initial value for the input field
-      qtyInput.value = 1;
-
-      // Add event listeners to the buttons
-      incrementButton.addEventListener("click", () => {
-          qtyInput.value = parseInt(qtyInput.value) + 1;
-      });
-
-      decrementButton.addEventListener("click", () => {
-          const currentValue = parseInt(qtyInput.value);
-          if (currentValue > 1) {
-              qtyInput.value = currentValue - 1;
-          }
-       
-      });
-  });
-});
-
-</script>
 </body>
 </html>
