@@ -131,7 +131,7 @@ input[type=number]{
       <div class="product_info">
           <div class="product_name" style="color: #011427; font-size: 26px;">{{ product.name }}</div>
           <div class="product_details" >
-            <a href="#" style="color: #474747; font-size: 16px;">see details ></a>
+            <a href="{% url 'details' product.id %}" style="color: #474747; font-size: 16px;">see details ></a>
           </div> <br>
           <div class="product_qty_default"><span style="color: #404041; font-size: 18px;">Unit Quantity: {{ product.quantity }} Box </span></div> <br>
           <div class="txt" style="color: #03305f; font-size: 20px;">Update Quantity</div>

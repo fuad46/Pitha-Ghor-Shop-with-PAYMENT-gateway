@@ -216,104 +216,11 @@ def user_orders(request, user_id):
 
 
 
-
-# @login_required
-# def see_orders(request):
-#     """Show logged-in user's orders"""
-#     orders = Order.objects.filter(user=request.user)  
-#     return render(request, 'order.html', {'orders': orders})
-# @login_required
-# def see_orders(request):
-#     """Show user orders and handle 'Pay' button"""
-#     if request.method == "POST":
-#         order_id = request.POST.get("order_id")
-#         action = request.POST.get("action")
-
-#         order = get_object_or_404(Order, id=order_id, user=request.user)
-
-#         if action == "pay_order":
-#             order.status = "paid"
-#             order.save()
-
-#     orders = Order.objects.filter(user=request.user)
-#     return render(request, "order.html", {"orders": orders})
-
-# @login_required
-# def pay_order(request, order_id):
-#     order = get_object_or_404(Order, id=order_id, user=request.user)
-#     order.status = 'paid'
-#     order.save()
-#     return redirect('see_orders')  
-
-# logger = logging.getLogger(__name__)
-# def pay_order(request, order_id):
-#     order = get_object_or_404(Order, id=order_id)
-
-#     if request.method == "POST" and 'action' in request.POST and request.POST['action'] == 'pay_order':
-
-#         order.status = 'paid'
-#         order.save()
-
- 
-#         return redirect('orders', user_id=order.user.id)
-
-#     return redirect('orders', user_id=order.user.id)
-
-# @user_passes_test(lambda u: u.is_superuser)
-# def admin_orders(request):
-#     """Admin panel to manage all orders"""
-#     if request.method == "POST":
-#         order_id = request.POST.get("order_id")
-#         action = request.POST.get("action")
-
-#         order = get_object_or_404(Order, id=order_id)
-
-#         if action == "confirm_order":
-#             order.status = "confirmed"
-#             order.save()
-#         elif action == "cancel_order":
-#             order.status = "cancelled"
-#             order.save()
-#         elif action == "delete_order":
-#             order.delete()
-
-#     orders = Order.objects.all()
-#     return render(request, "admin_orders.html", {"orders": orders})
+def see_details(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    return render(request, 'details.html', {'product':product})
 
 
-
-# @user_passes_test(lambda u: u.is_superuser)
-# def admin_orders(request):
-#     """View all orders for the superadmin"""
-#     orders = Order.objects.all()
-#     return render(request, 'user.html', {'orders': orders})
-
-
-
-# @user_passes_test(lambda u: u.is_superuser)
-# def confirm_order(request, order_id):
-#     """Mark order as confirmed"""
-#     order = get_object_or_404(Order, id=order_id)
-#     order.status = 'confirmed'
-#     order.save()
-#     return redirect('user')
-
-# @user_passes_test(lambda u: u.is_superuser)
-# def cancel_order(request, order_id):
-#     """Cancel an order"""
-#     order = get_object_or_404(Order, id=order_id)
-#     order.status = 'cancelled'
-#     order.save()
-#     return redirect('user')
-
-
-
-# NEW CODE ------------------- >
-# @login_required
-# def see_orders(request):
-#     """Show user orders"""
-#     orders = Order.objects.filter(user=request.user)
-#     return render(request, 'order.html', {'orders': orders})
 
 @login_required
 def see_orders(request, user_id):
@@ -325,7 +232,7 @@ def see_orders(request, user_id):
         action = request.POST.get("action")
 
         if action == "pay_order":
-            order = Order.objects.get(id=order_id, user=user)  # Ensure order belongs to user
+            order = Order.objects.get(id=order_id, user=user)  
             order.status = "Paid"
             order.save()
 

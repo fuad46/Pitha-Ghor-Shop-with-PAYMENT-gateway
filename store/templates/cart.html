@@ -24,7 +24,6 @@ nav{
   width: 100%;
   display: flex;
  align-items: center;
- /* justify-content: center; */
  justify-content: center;
  margin: 40px 0 40px 0;
 
@@ -119,16 +118,10 @@ nav{
   <div class="product_img"><img src="{{ item.product.image.url }}" alt=""></div>
   <div class="product_info">
       <div class="product_name">{{ item.product.name }}</div>
-      <div class="product_details"><a href="#">see details ></a></div> <br>
+      <div class="product_details"><a href="{% url 'details' item.product.id %}">see details ></a></div> <br>
       <div class="product_qty_default"><strong>Your Quantity:</strong> {{ item.quantity }} Box</div> <br>
       <div class="product_price">PAY: {{ item.new_price }} BDT</div><br>
-      <!-- {% csrf_token %}
-      <div class="txt">Update Quantity</div>
-      <div class="product_qty">
-          <button type="button" class="sub_product">-</button>
-          <input type="number" name="quantity" min="1" required>
-          <button type="button" class="add_product">+</button>
-      </div> -->
+   
       <div class="form-sec-action">
         <form class="f" method="POST" action="{% url 'buy_item' item.id %}">
           {% csrf_token %}
