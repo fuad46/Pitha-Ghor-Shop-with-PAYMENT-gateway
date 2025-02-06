@@ -29,7 +29,7 @@ urlpatterns = [
   path('orders/<int:order_id>/delete/', views.delete_order, name='delete_order'),
 
   path('details/<int:product_id>/', views.see_details, name='details'),
-  path('orders/<int:user_id>/', views.see_orders, name='orders'),  # For logged-in users
+  path('orders/<int:user_id>/', views.see_order, name='orders'),  
   path('orders/admin/', views.admin_orders, name='admin_orders'),
 
 ]

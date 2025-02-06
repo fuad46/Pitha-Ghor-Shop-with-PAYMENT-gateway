@@ -78,7 +78,7 @@ def delete_user(request, user_id):
  
     if request.method == "POST":
         action = request.POST.get('action')
-        # Fetch the user to be deleted
+    
         user_to_delete = get_object_or_404(User, pk=user_id)
         if action=='del_user':
        
@@ -185,7 +185,7 @@ def buy_item(request, item_id):
         item = get_object_or_404(Storage1, id=item_id, user=request.user)
         action = request.POST.get('action')
         if action=='keep-item':
-        # Create a new order
+      
             order = Order.objects.create(
                 user=request.user,
                 product=item.product,
@@ -222,29 +222,31 @@ def see_details(request, product_id):
 
 
 
-# @login_required
-# def see_orders(request, user_id):
-#     user = get_object_or_404(User, id=user_id)  # Get the user
-#     orders = Order.objects.filter(user=user)  # Fetch only this user's orders
+@login_required
+def see_orders(request, user_id):
+    user = get_object_or_404(User, id=user_id)  
+    orders = Order.objects.filter(user=user)  
 
-#     if request.method == "POST":
-#         order_id = request.POST.get("order_id")
-#         action = request.POST.get("action")
+    if request.method == "POST":
+        order_id = request.POST.get("order_id")
+        action = request.POST.get("action")
 
-#         if action == "pay_order":
-#             order = Order.objects.get(id=order_id, user=user)  
-#             order.status = "Paid"
-#             order.save()
+        if action == "pay_order":
+            order = Order.objects.get(id=order_id, user=user)  
+            order.status = "Paid"
+            order.save()
 
-#     return render(request, "order.html", {"orders": orders})
+    return render(request, "order.html", {"orders": orders})
 
 @login_required
-def see_orders(request, user_id=None):
-    """Show orders based on user type"""
+def see_order(request, user_id=None):
+
     if request.user.is_superuser:
-        orders = Order.objects.all()  # Admin sees all orders
+        orders = Order.objects.all() 
     else:
-        orders = Order.objects.filter(user=request.user)  # User sees only their orders
+        orders = Order.objects.filter(user=request.user) 
+
+    
     
     return render(request, "order.html", {"orders": orders})
 
