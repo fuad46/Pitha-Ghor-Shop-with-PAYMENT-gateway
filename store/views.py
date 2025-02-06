@@ -222,20 +222,30 @@ def see_details(request, product_id):
 
 
 
+# @login_required
+# def see_orders(request, user_id):
+#     user = get_object_or_404(User, id=user_id)  # Get the user
+#     orders = Order.objects.filter(user=user)  # Fetch only this user's orders
+
+#     if request.method == "POST":
+#         order_id = request.POST.get("order_id")
+#         action = request.POST.get("action")
+
+#         if action == "pay_order":
+#             order = Order.objects.get(id=order_id, user=user)  
+#             order.status = "Paid"
+#             order.save()
+
+#     return render(request, "order.html", {"orders": orders})
+
 @login_required
-def see_orders(request, user_id):
-    user = get_object_or_404(User, id=user_id)  # Get the user
-    orders = Order.objects.filter(user=user)  # Fetch only this user's orders
-
-    if request.method == "POST":
-        order_id = request.POST.get("order_id")
-        action = request.POST.get("action")
-
-        if action == "pay_order":
-            order = Order.objects.get(id=order_id, user=user)  
-            order.status = "Paid"
-            order.save()
-
+def see_orders(request, user_id=None):
+    """Show orders based on user type"""
+    if request.user.is_superuser:
+        orders = Order.objects.all()  # Admin sees all orders
+    else:
+        orders = Order.objects.filter(user=request.user)  # User sees only their orders
+    
     return render(request, "order.html", {"orders": orders})
 
 
@@ -254,9 +264,7 @@ def pay_order(request, order_id):
 
 @user_passes_test(lambda u: u.is_superuser)
 def admin_orders(request):
-    """View and manage all orders (Admin)"""
     orders = Order.objects.all()
-
     if request.method == "POST":
         order_id = request.POST.get("order_id")
         action = request.POST.get("action")
@@ -267,10 +275,6 @@ def admin_orders(request):
             
         elif action == "cancel_order":
             order.status = "Cancelled"
-        # elif action == "delete_order":
-        #     order.delete()
-        #     return redirect('order')
-
         order.save()
         messages.success(request, f"Order {order_id} updated successfully.")
 

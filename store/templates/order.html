@@ -17,7 +17,12 @@
 
 <body>
     <div class="hero">
-        {{ user.full_name }}'s Buying List
+        {{ user.full_name }}'s Buying List <br>
+        <div class="msg-err">
+            {% for m in messages %}
+                ___{{m}}
+            {% endfor %}
+        </div>
        </div>
     <nav>
     <div class="logo" >&#127860; Shop</div>
@@ -28,7 +33,7 @@
     </nav>
    
 
-{% if orders %}
+
 <div class="table-sec1">
     <h2>My Orders</h2>
 <div class="table">
@@ -78,9 +83,7 @@
     </div>
 </div>
 </div>
-{% else %}
-<p>You have no orders yet.</p>
-{% endif %}
+
 
 
 
@@ -89,7 +92,7 @@
 
 
 
-{% if orders %}
+
 <div class="table-sec2">
     <h2>All Orders - Admin Panel</h2>
 <div class="table">
@@ -142,10 +145,9 @@
     </div>
 </div>
 </div>
-{% else %}
-<p>No orders found.</p>
+
 {% endif %}
-{% endif %}
+
 
 
 </body>
