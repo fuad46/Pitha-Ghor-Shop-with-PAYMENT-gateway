@@ -75,22 +75,22 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',  # Use the MySQL database backend
-#         'NAME': 'your_database_name',         # Name of your database
-#         'USER': 'root',            # MySQL username
-#         'PASSWORD': '11146',    # MySQL password
-#         'HOST': 'localhost',                  # Database host (use '127.0.0.1' if localhost doesn't work)
-#         'PORT': '3306',                       # Default MySQL port
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',  
+        'NAME': 'shopdb',         
+        'USER': 'root',            
+        'PASSWORD': '11146',    
+        'HOST': 'localhost',                
+        'PORT': '3306',                      
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
