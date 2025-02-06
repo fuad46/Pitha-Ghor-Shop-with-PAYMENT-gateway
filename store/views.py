@@ -242,9 +242,9 @@ def see_orders(request, user_id):
 def see_orders(request, user_id=None):
     """Show orders based on user type"""
     if request.user.is_superuser:
-        orders = Order.objects.all()  # Admin sees all orders
+        orders = Order.objects.all()  
     else:
-        orders = Order.objects.filter(user=request.user)  # User sees only their orders
+        orders = Order.objects.filter(user=request.user)  
     
     return render(request, "order.html", {"orders": orders})
 
