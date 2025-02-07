@@ -77,16 +77,16 @@ User = get_user_model()
 
 class Order(models.Model):
     STATUS_CHOICES = (
-        ('pending', 'Pending'),
-        ('paid', 'Paid'),
-        ('confirm', 'Confirm'),
-        ('cancel', 'Cancel'),
+        ('Pending', 'Pending'),
+        ('Paid', 'Paid'),
+        ('Confirm', 'Confirm'),
+        ('Cancel', 'Cancel'),
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
     order_date = models.DateTimeField(auto_now_add=True)
     
     

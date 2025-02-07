@@ -220,7 +220,7 @@ def user_orders(request, user_id):
 
 
 def see_details(request, product_id):
-    product = get_object_or_404(Product, id=product_id)
+    product = get_object_or_404(Product, id=product_id, user=request.user)
     return render(request, 'details.html', {'product':product})
 
 
@@ -237,7 +237,7 @@ def pay_order(request, order_id):
         else:
             messages.error(request, "Invalid action.")
     
-    return redirect('orders')  
+    return redirect( 'orders', user_id=request.user.id)  
 
 
 @login_required
@@ -302,4 +302,11 @@ def delete_order(request, order_id):
             messages.success(request, f"Order {order_id} deleted successfully.")
     return redirect('admin_orders') 
 
+
+
+
+
+def all_products(request):
+    products = Product.objects.all()
+    return render(request, 'all-products.html', {'products':products})
 
