@@ -295,3 +295,6 @@ def delete_order(request, order_id):
             messages.success(request, f"Order {order_id} deleted successfully.")
     return redirect('admin_orders') 
 
+def all_products(request):
+    products = Product.objects.all()
+    return render(request, 'all-products.html', {'products':products})
