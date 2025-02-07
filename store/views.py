@@ -222,14 +222,14 @@ def see_details(request, product_id):
 
 
 
-# @login_required
-# def see_orders(request, user_id):
-#     user = get_object_or_404(User, id=user_id)  # Get the user
-#     orders = Order.objects.filter(user=user)  # Fetch only this user's orders
+@login_required
+def see_orders(request, user_id):
+    user = get_object_or_404(User, id=user_id)  
+    orders = Order.objects.filter(user=user)  
 
-#     if request.method == "POST":
-#         order_id = request.POST.get("order_id")
-#         action = request.POST.get("action")
+    if request.method == "POST":
+        order_id = request.POST.get("order_id")
+        action = request.POST.get("action")
 
         if action == "pay_order":
             order = Order.objects.get(id=order_id, user=user)  
@@ -294,3 +294,4 @@ def delete_order(request, order_id):
         
             messages.success(request, f"Order {order_id} deleted successfully.")
     return redirect('admin_orders') 
+
