@@ -39,11 +39,11 @@ class User(AbstractBaseUser, PermissionsMixin):  # Inherit PermissionsMixin
     def __str__(self):
         return self.email
 
-    # Implement has_module_perms to return if the user has any module permissions
+   
     def has_module_perms(self, app_label):
         return True
 
-    # Implement has_perm to return if the user has a specific permission
+
     def has_perm(self, perm, obj=None):
         return self.is_superuser
 

@@ -59,26 +59,19 @@
             <div class="td">{{ order.status }}</div>
             <div class="td">{{ order.order_date }}</div>
             <div class="td">
-                <form method="POST" action="{% url 'orders' user_id=order.user.id%}">
+                <form method="POST" action="{% url 'pay_order' order.id %}">
                     {% csrf_token %}
                     <input type="hidden" name="order_id" value="{{ order.id }}">
-                    {% if order.status == "pending" %}
-                        <!-- <button type="submit" name="action" value="pay_order" class="btn btn-primary">Pay</button> -->
-                        
-                        <form method="POST" action="{% url 'orders' user_id=user.id %}">
-                            {% csrf_token %}
-                            <input type="hidden" name="order_id" value="{{ order.id }}">
-                            {% if order.status == "pending" %}
-                                <button type="submit" name="action" value="pay_order" class="btn btn-primary btn-pay">Pay</button>
-                            {% else %}
-                                <span>Paid</span>
-                            {% endif %}
-                            
-                        </form>
+                    {% if order.status == "Pending" %}
+                        <button type="submit" name="action" value="pay_order" class="btn btn-primary btn-pay">
+                            Pay
+                        </button>
                     {% else %}
                         <span>Paid</span>
+                        
                     {% endif %}
                 </form>
+                   
             </div>
         </div>
         {% endfor %}
