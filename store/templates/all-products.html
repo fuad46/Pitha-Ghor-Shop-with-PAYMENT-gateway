@@ -60,7 +60,10 @@
       border-bottom: 2px solid #0b55aa;
     }
     .product_details_sec{
-      border-bottom: 8px solid #ffffff;
+      width: 98%;
+      border-right: 8px solid #010a2b;
+      margin-bottom: 240px;
+      box-shadow:   5px 5px 15px rgba(156, 176, 221, 0.23);
     }
   </style>
 </head>
@@ -79,7 +82,7 @@
       {% endif %}
     </div>  
   </nav>
-  <h1 style="display: flex; justify-content: center; align-items: center; color: #04001f;">{{product.name}} Details</h1>
+  <h1 style="display: flex; justify-content: center; align-items: center; color: #04001f;"> All Products</h1>
   {% for product in products %}
   <div class="product_details_sec">
     <div class="product_img"><img class="image" src="{{ product.image.url }}" alt="img" ></div>
