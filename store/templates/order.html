@@ -49,6 +49,7 @@
         </div>
     </div>
     <div class="tbody">
+        {% if orders %}
         {% for order in orders %}
         <div class="tr1">
        
@@ -72,6 +73,7 @@
                             {% else %}
                                 <span>Paid</span>
                             {% endif %}
+                            
                         </form>
                     {% else %}
                         <span>Paid</span>
@@ -80,6 +82,9 @@
             </div>
         </div>
         {% endfor %}
+        {% else %}
+        <div class="td">NO ORDERS.  <a href="{% url 'home' %}" >  <strong>BUY More>></strong></a></div>
+        {% endif %}
     </div>
 </div>
 </div>
@@ -109,6 +114,7 @@
         </div>
     </div>
     <div class="tbody">
+        {% if orders %}
         {% for order in orders %}
         <div class="tr">
             <div class="td">{{ order.id }}</div>
@@ -142,6 +148,9 @@
              <!-- action ends  -->
         </div>
         {% endfor %}
+        {% else %}
+        <div class="td">No Current Orders</div>
+        {% endif %}
     </div>
 </div>
 </div>

@@ -1,0 +1,161 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ product.name }}</title>
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="{% static 'css/details.css' %}">
+  <style>
+    .qty-price-sec{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .title-sec, .details-sec{
+      width: 100%;
+      background-color: #FFFFFF;
+      margin: 24px 0;
+      padding: 1rem 1.2rem ;
+      box-shadow:   5px 5px 15px rgba(156, 176, 221, 0.23);
+      border-radius: 8px;
+
+
+    }
+    .details-qty, .details-price{
+      padding: 0;
+      margin: 0;
+      font-size: 1rem;
+      color: #676b74;
+   
+    }
+    .product_img, .image{
+      height: 360px;
+      border-radius: 4px;
+    }
+    .product_img{
+      width: 30%;
+    }
+    .cart{
+      margin: 0px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: .4rem;
+      background-color: #FFFFFF;
+      box-shadow:   5px 5px 15px rgba(156, 176, 221, 0.23);
+      border-radius: 8px;
+    }
+    a:hover{
+      color: #0b55aa;
+      border-bottom: 2px solid #0b55aa;
+    }
+    .product_details_sec{
+      border-bottom: 8px solid #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div id="logo" >&#127860; Shop</div>
+    <div class="nav-r">
+      {% if user.is_authenticated %}
+      <a href="/user/">My Profile</a>
+     
+      <a href="{% url 'home'%}">Go Home</a>  
+     
+      {% else %}
+      <a href="/register/">Register</a>  <a href="/login/">Login</a>
+     
+      {% endif %}
+    </div>  
+  </nav>
+  <h1 style="display: flex; justify-content: center; align-items: center; color: #04001f;">{{product.name}} Details</h1>
+  {% for product in products %}
+  <div class="product_details_sec">
+    <div class="product_img"><img class="image" src="{{ product.image.url }}" alt="img" ></div>
+    <div class="product-info">
+      <div class="title-sec">
+        <div class="title">Product Name  </div>
+        <div class="name">{{product.name}}</div>
+      </div>
+      <div class="details-sec">
+        <div class="title">Details</div>
+        <div class="details">{{product.details}}</div>
+        <div class="qty-price-sec">
+          <div class="details-qty">Quantity: {{product.quantity}}</div>
+          <div class="details-price">Price: {{product.price}}</div>
+        </div>
+      </div>
+   
+  </div>
+  <div class="cart">
+    <div class="title" style="font-size: 1.3rem; margin-bottom: 8px;">Update Quantity</div>
+    <form action="{% url 'save_product' product.id %}" method="post">
+      {% csrf_token %}
+      <div class="product_qty">
+          <button type="button" class="sub_product">-</button>
+          <input type="number" name="quantity" min="1" required>
+          <button type="button" class="add_product">+</button>
+      </div>
+      <br>
+      <button type="submit" class="product_btn">Add To Cart</button>
+  </form>
+  </div>
+  </div>
+  {% endfor %}
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    // Select all product containers
+    const products = document.querySelectorAll(".cart");
+
+
+    products.forEach(product => {
+        // Get the relevant elements inside each product
+        const qtyInput = product.querySelector(".product_qty input[type='number']");
+        const incrementButton = product.querySelector(".add_product");
+        const decrementButton = product.querySelector(".sub_product");
+
+
+        // Set an initial value for the input field
+        qtyInput.value = 1;
+
+
+        // Add event listeners to the buttons
+        incrementButton.addEventListener("click", () => {
+            qtyInput.value = parseInt(qtyInput.value) + 1;
+        });
+
+
+        decrementButton.addEventListener("click", () => {
+            const currentValue = parseInt(qtyInput.value);
+            if (currentValue > 1) {
+                qtyInput.value = currentValue - 1;
+            }
+         
+        });
+    });
+});
+
+
+
+
+</script>
+
+
+
+
+</body>
+</html>
+

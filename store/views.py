@@ -222,14 +222,14 @@ def see_details(request, product_id):
 
 
 
-@login_required
-def see_orders(request, user_id):
-    user = get_object_or_404(User, id=user_id)  
-    orders = Order.objects.filter(user=user)  
+# @login_required
+# def see_orders(request, user_id):
+#     user = get_object_or_404(User, id=user_id)  # Get the user
+#     orders = Order.objects.filter(user=user)  # Fetch only this user's orders
 
-    if request.method == "POST":
-        order_id = request.POST.get("order_id")
-        action = request.POST.get("action")
+#     if request.method == "POST":
+#         order_id = request.POST.get("order_id")
+#         action = request.POST.get("action")
 
         if action == "pay_order":
             order = Order.objects.get(id=order_id, user=user)  
@@ -242,11 +242,9 @@ def see_orders(request, user_id):
 def see_order(request, user_id=None):
 
     if request.user.is_superuser:
-        orders = Order.objects.all() 
+        orders = Order.objects.all()  # Admin sees all orders
     else:
-        orders = Order.objects.filter(user=request.user) 
-
-    
+        orders = Order.objects.filter(user=request.user)  # User sees only their orders
     
     return render(request, "order.html", {"orders": orders})
 
