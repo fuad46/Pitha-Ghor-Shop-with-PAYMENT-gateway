@@ -220,7 +220,7 @@ def user_orders(request, user_id):
 
 
 def see_details(request, product_id):
-    product = get_object_or_404(Product, id=product_id, user=request.user)
+    product = get_object_or_404(Product, id=product_id)
     return render(request, 'details.html', {'product':product})
 
 
