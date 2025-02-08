@@ -22,6 +22,15 @@
   padding: 0;
   display: flex;
   flex-direction: column;
+  position: absolute;
+}
+nav{
+  box-shadow:     02px 04px 15px rgba(200, 209, 230, 0.23);
+  margin-top: 0;
+  margin-bottom: 4;
+  padding: 24px 0;
+
+ 
 }
   .product_qty{
     display: flex;
@@ -51,8 +60,10 @@
   
 }
 .product_info{
-  box-shadow: 0px 3px 3px rgba(150, 172, 197, 0.11);
+  box-shadow: 03px 3px 13px rgba(150, 172, 197, 0.11);
   /* border: 2px solid #f3f8ff; */
+  border: 1px solid #dbdddf;
+  border-radius: 16px;
 }
 a{
   color: #02000f;
@@ -65,11 +76,18 @@ a{
   display: flex;
   align-items: center;
   justify-content: center;
+ 
 }
 img{
-  width: 80%; height: 240px; display: flex;
+  width: 100%; height: 240px; display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 32px  32px 0 0;
+}
+img:hover{
+  opacity: 0.7;
+  cursor: pointer;
+  border-radius: 32px;
 }
 .product_btn{
   border: none;
@@ -77,45 +95,73 @@ img{
       display: flex;align-items: center;justify-content: center;
       padding: 0px;
       background: #0b55aa;color: #fff;
-      font-size: 18px;font-weight: 300;border-radius: 2px;
+      font-size: 18px;font-weight: 300;border-radius: 6px;
       cursor: pointer;
+}
+.product_btn:hover{
+  border-radius: 12px;
 }
 button[type=button]{
   width: 40px; height: 40px; 
-  display: flex; align-items: center; justify-content: center; font-size: 22px; background-color: #03305f;
+  display: flex; align-items: center; justify-content: center; font-size: 1.6rem; background-color: #03305f;
   border: none;
   color: #fff;
   cursor: pointer;
+ 
 }
 button[type=button]:hover{
   background-color: #0a49a7;
+  border-radius: 12px;
 }
 input[type=number]{
   height: 38px;
- 
+  padding: 0 40px;
+  font-weight: 500;
+  border: 1px solid #dbdddf;
+ font-size: 1rem;
 }
 .product_btn:hover{
   cursor: pointer;
   background-color: #428de2;
 }
+.hero1{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background-color: #03305f;
+}
+.hero1-r{
+  background-color: #FFFFFF;
+  width: 50%;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 4rem;
+  color: #FFFFFF;
+  background-color: #03305f;
+}
+.product_info{
+  width: 85%;}
   </style>
 </head>
 
 <body>
+  <div class="hero" style="width: 100%; font-size: 1rem; height: 40px; margin: 0 ;">
+    HOME
+  </div>
   <nav>
     <div class="logo" >&#127860; Shop</div>
-      <div class="nav-r">
+      <div class="nav-r" >
         {% if user.is_authenticated %}
 
         <a href="{% url 'all-products'%}">All product</a> 
-
-
-
-
-
         <a href="user">My Profile</a> 
-        <a href="{% url 'logout' %}">Logout</a>
+        
         <a href="{% url 'cart'%}">Cart</a>  
+        <a href="{% url 'logout' %}">Logout</a>
         
         {% else %}
         <a href="/register/">Register</a>  <a href="/login/">Login</a>
@@ -123,10 +169,15 @@ input[type=number]{
         {% endif %}
       </div>  
   </nav>
-  <div class="hero">
-    HOME
+  <div class="hero1">
+    <img style="width: 50%; height: 600px; border-radius: 0 108px 108px 0px;" src="https://media.sciencephoto.com/image/f0089517/800wm" alt="">
+    <div class="hero1-r">Best Online Shop</div>
   </div>
-
+  <!-- <div class="hero">
+    HOME
+  </div> -->
+  <h1 style="display: flex; align-items: center ; justify-content: center; margin-top: 156px; color: #02000f;">
+    Our Top Products</h1>
   <div class="products">
     {% if products %}
     
@@ -134,7 +185,13 @@ input[type=number]{
    
 
      <div class="product">
-      <div class="product_img"><img src="{{ product.image.url }}" alt="img" ></div>
+      <div class="product_img">
+        <a href="{% url 'details' product.id %}" style="width: 85%;">
+          <img src="{{ product.image.url }}" alt="img" >
+        </a>
+        
+      </div>
+
       <div class="product_info">
           <div class="product_name" style="color: #011427; font-size: 26px;">{{ product.name }}</div>
           <div class="product_details" >
