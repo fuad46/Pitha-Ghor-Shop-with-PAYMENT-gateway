@@ -33,12 +33,18 @@ nav{
  #buy-btn{
   width: 100%;
   display: flex;
-  border-radius: 0;
+  border-radius: 8px 0 0 8px;
  }
  #del-cart{
   width: 100%;
   background: #720f12;
+  border-radius: 0 8px 8px 0;
 
+ }
+ #del-cart:hover,  #buy-btn:hover{
+  cursor: pointer;
+  opacity: 0.8;
+  border-radius: 12px;
  }
  #logo{
 
@@ -83,6 +89,17 @@ nav{
   box-shadow: 5px 5px 15px rgba(79, 97, 119, 0.3);
   margin-bottom: 80px;
  }
+ .product_info{
+  width: 100%;
+  box-shadow: 03px 3px 13px rgba(150, 172, 197, 0.11);
+  /* border: 2px solid #f3f8ff; */
+  border: 1px solid #dbdddf;
+  border-radius: 0 0 16px 16px;
+ }
+ .product_img{
+  width: 100%;
+  border-radius: 12px;
+ }
  .msg-err{
       margin-top: 24px;
       color: #016e32;
@@ -117,7 +134,10 @@ nav{
   {% if saved_items %}
   {% for item in saved_items %}
 <div class="product">
-  <div class="product_img"><img src="{{ item.product.image.url }}" alt=""></div>
+  <div class="product_img">
+    <img style="width: 100%; height: 200px; border-radius: 12px 12px 0 0;" 
+    src="{{ item.product.image.url }}" alt="">
+  </div>
   <div class="product_info">
       <div class="product_name" style="font-size: 1.6rem; font-weight: 500;">{{ item.product.name }}</div>
       <div class="product_details">
