@@ -188,6 +188,7 @@ a{
         <a href="{% url 'logout' %}">Logout</a>
         <a href="{% url 'home' %}">Go Home</a>
         <a href="{% url 'orders' user_id=user.id %}">Orders</a>
+        <a href="{% url 'done_order' %}">Done</a>
    
         {% else %}
         <a href="/register/">Register</a>  <a href="/login/">Login</a>
@@ -310,10 +311,16 @@ a{
    
 </div>
 </div>
+
+{% for order in done_orders %}
+<div>{{order.order.product.name}}</div>
+{% endfor %}
 {% endif %}
 
 <h2> </h2>
-
+{% for order in done_orders %}
+<div>{{order.order_name}} &nbsp;  &nbsp;  &nbsp; qty:{{order.quantity}}  &nbsp;  &nbsp;  &nbsp; {{order.price}}BDT</div>
+{% endfor %}
 
     </tbody>
 </table>

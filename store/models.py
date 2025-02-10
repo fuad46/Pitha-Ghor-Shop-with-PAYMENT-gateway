@@ -92,6 +92,24 @@ class Order(models.Model):
     
     def __str__(self):
         return f"Order {self.id} by {self.user.full_name} - {self.product.name}"
+    
+
+class DoneOrder(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE) 
+    order_name = models.CharField(max_length=255)  
+    quantity = models.IntegerField()
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    order_date = models.DateTimeField(auto_now_add=True)
+
+    
+    def __str__(self):
+        return f"Order {self.id} by {self.user.full_name} - {self.order.product.name}"
+
+    def save(self, *args, **kwargs):
+        if self.order and self.order.product:  
+            self.order_name = self.order.product.name  
+        super().save(*args, **kwargs)
 
 
 

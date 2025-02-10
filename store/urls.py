@@ -35,6 +35,9 @@ urlpatterns = [
   path('all-products', views.all_products, name='all-products'),
 
 
+  path('done_order/', views.done_order, name='done_order'),
+
+
 ]
 
 

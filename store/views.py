@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
-from .models import User, Product, Storage1, Order
+from .models import User, Product, Storage1, Order, DoneOrder
 from django.contrib import messages
 # from django.urls import reverse
 from django.http import HttpResponse
@@ -68,6 +68,11 @@ def user_view(request):
     users = User.objects.all()
     products = Product.objects.all()
     return render(request, 'user.html', {'users': users, 'products': products})
+
+@login_required
+def done_order(request):
+    done_orders = DoneOrder.objects.filter(user=request.user)
+    return render(request, 'dn-order.html', {'done_orders': done_orders})
 
 # product 
 
@@ -279,7 +284,15 @@ def admin_orders(request):
 
         if action == "confirm_order":
             order.status = "Confirmed"
-            
+            DoneOrder.objects.create(
+            user=order.user,
+            order_id=order.id,
+            order_name=order.product.name,
+            quantity=order.quantity,
+            price=order.price,
+            order_date=order.order_date
+            )
+
         elif action == "cancel_order":
             order.status = "Cancelled"
         order.save()
