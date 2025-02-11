@@ -67,10 +67,12 @@ def user_view(request):
 def user_view(request):
     users = User.objects.all()
     products = Product.objects.all()
-    return render(request, 'user.html', {'users': users, 'products': products})
+    count_dn_orders = DoneOrder.objects.filter(user=request.user).count()
+    return render(request, 'user.html', {'users': users, 'products': products, 'count_dn_orders':count_dn_orders})
 
 @login_required
 def done_order(request):
+ 
     done_orders = DoneOrder.objects.filter(user=request.user)
     return render(request, 'dn-order.html', {'done_orders': done_orders})
 

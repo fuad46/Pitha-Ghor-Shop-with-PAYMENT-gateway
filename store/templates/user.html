@@ -180,7 +180,7 @@ a{
 <body>
 
   <nav>
-    <div class="logo" >&#127860; Shop</div>
+    <div class="logo" > Shop</div>
       <div class="nav-r">
         {% if user.is_authenticated %}
         <!-- <a href="{% url 'user' %}">My Profile</a> 
@@ -188,7 +188,7 @@ a{
         <a href="{% url 'logout' %}">Logout</a>
         <a href="{% url 'home' %}">Go Home</a>
         <a href="{% url 'orders' user_id=user.id %}">Orders</a>
-        <a href="{% url 'done_order' %}">Done</a>
+        <a href="{% url 'done_order' %}">Completed: ({{count_dn_orders}})</a>
    
         {% else %}
         <a href="/register/">Register</a>  <a href="/login/">Login</a>

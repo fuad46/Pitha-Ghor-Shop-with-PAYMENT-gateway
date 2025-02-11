@@ -1,0 +1,78 @@
+body{
+  padding: 0;
+  margin: 0;
+  font-family: 'Poppins';
+  /* background-color: #f7f9fc; */
+  background-color: #050f1b;
+  color: #f7f9fc;
+}
+.icon-user{
+  width: 100%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ margin-top: 200px;
+ margin-bottom: 80px;
+
+}
+i.fa-user{
+ font-size:4rem;
+ border: 2px solid #f7f9fc;
+ padding: 4rem;
+ border-radius: 100px;
+ 
+
+}
+.userinfo{
+  width: 20%;
+  background-color: #021a35;
+  height: 950px;
+  color: #f7f9fc;
+box-shadow: 03px 3px 13px rgba(150, 172, 197, 0.11);
+display: flex;
+align-items: center ;
+
+flex-direction: column;
+}
+
+.main{
+  display: flex;
+
+}
+.table1{
+  display: flex;
+
+  width: 40%;
+  align-items: center;
+  justify-content: center;
+}
+.table{
+  width: 100%;
+  display: flex;
+ border-radius: 12px;
+  align-items: center;
+  justify-content: center;
+  background-color: #20262ca9;
+  height: 200px;
+  box-shadow: 03px 3px 13px rgba(150, 172, 197, 0.11);
+  border: 1px solid #4d525a;
+}
+.logo{
+  color: #f7f9fc;
+  font-weight: 800;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ .price, .qty, .name{
+  width: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.date{
+  width: 10rem;
+}
+
