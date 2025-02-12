@@ -48,7 +48,8 @@ def login_view(request):
         
         if user:
             login(request, user)
-            return redirect('user')
+            # return redirect('user')
+            return redirect('done_order')
         else:
             return render(request, 'login.html', {'error': 'Invalid email or password'})
 
