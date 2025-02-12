@@ -78,7 +78,7 @@ nav{
   margin: 20px 0px;
 }
  .products{
-  width: 100%;
+  width: 95%;
  padding: 40px 0;
   display: flex;
   flex-wrap: wrap;
@@ -107,19 +107,29 @@ nav{
       align-items: center;
       justify-content: center;
     }
+    nav{
+      box-shadow: 03px 3px 13px rgba(150, 172, 197, 0.11);
+      background-color: #051e3b; color: #fdfdfd;
+      margin-top: 0; 
+    }
+    body{
+      margin: 0; padding: 0;
+      display: flex; align-items: center;
+      justify-content: center; flex-direction: column;
+    }
   </style>
 </head>
 <body>
   <nav>
-  <div id="logo" >Shop</div>
-  <div class="nav-r">
+  <div id="logo" style="color: #f1f8ff;">Shop</div>
+  <div class="nav-r" style="background-color: #051e3b;">
     {% if user.is_authenticated %}
-    <a href="/user/">My Profile</a> 
+    <a style="color: #f1f8ff;" href="{% url 'done_order' %}">My Profile</a> 
     
-    <a href="{% url 'home'%}">Go Home</a>  
-    <a href="{% url 'orders' user_id=user.id %}">Orders</a>
+    <a style="color: #f1f8ff;" href="{% url 'home'%}">Go Home</a>  
+    <a style="color: #f1f8ff;" href="{% url 'orders' user_id=user.id %}">Orders</a>
     {% else %}
-    <a href="/register/">Register</a>  <a href="/login/">Login</a>
+    <a style="color: #f1f8ff;" style="color: #f1f8ff;" href="/register/">Register</a>  <a href="/login/">Login</a>
     
     {% endif %}
   </div>  

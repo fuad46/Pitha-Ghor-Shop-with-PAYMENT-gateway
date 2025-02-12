@@ -10,6 +10,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="{% static 'css/user.css' %}">
+
+    <!-- icons -->
+    <script src="https://kit.fontawesome.com/59e7337c41.js" crossorigin="anonymous"></script>
   <style>
     body{
       font-family: "Poppins", serif;
@@ -144,6 +147,11 @@
   background-color: #45a049;
   
 }
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center; flex-direction: column;
+}
 a{
   color: #2c3e64;
   margin-left: 4px;
@@ -189,6 +197,9 @@ a{
   box-shadow: 02px 04px 15px rgba(200, 209, 230, 0.23); border-radius: 16px; width: 95%; display: flex; 
   align-items: center; justify-content: center; margin: 0;
 }
+.icon_content{
+  font-size: 2rem;
+}
   </style>
 </head>
 <body style="background-color: #fafdff;">
@@ -215,7 +226,7 @@ a{
 {% if user.is_superuser %}
 
 <div class="user" style="box-shadow: 02px 04px 15px rgba(200, 209, 230, 0.23); border-radius: 16px; width: 99%; display: flex;
-align-items: center; justify-content: center; margin-left: .5rem; background-color: #ffffff;">
+align-items: center; justify-content: center; background-color: #ffffff;">
   <h1>Admin Pannel</h1> 
   
   <div class="user_info_sec">
@@ -230,12 +241,12 @@ align-items: center; justify-content: center; margin-left: .5rem; background-col
 </div>
 
 {% else %}
-<div class="user" style="box-shadow: 02px 04px 15px rgba(200, 209, 230, 0.23);">
-  <h1>My Profile</h1>
+<div class="user" style="box-shadow: 02px 04px 15px rgba(200, 209, 230, 0.23); margin-top: 240px;">
+  <h1>My Location    <i class="fa-solid fa-location-dot icon_content"></i></h1>
   <div class="user_info_sec">
     <div class="user_info"><span class="label">Name: </span>   <span class="label_info">{{user.full_name}}</span>     </div>
-    <div class="user_info"><span class="label">Email:</span>   <span class="label_info">{{user.email}}</span>         </div>
-    <div class="user_info"><span class="label">Phone:</span>   <span class="label_info">{{user.phone_number}}</span>  </div>
+    <!-- <div class="user_info"><span class="label">Email:</span>   <span class="label_info">{{user.email}}</span>         </div> -->
+    <!-- <div class="user_info"><span class="label">Phone:</span>   <span class="label_info">{{user.phone_number}}</span>  </div> -->
     <div class="user_info"><span class="label">Address:</span> <span class="label_info">{{ user.address }}</span>     </div>
   </div>
 

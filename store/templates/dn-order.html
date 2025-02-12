@@ -65,12 +65,13 @@
   padding: 0;
   height: 120px;
   margin-bottom: 6rem;
+  margin-left: 6.1rem;
 
 }
 .table1{
   display: flex; flex-direction: column; width: 40%; align-items: center; justify-content: start;
   width: 50%;
-  padding: 1rem 2rem;
+  padding: 1rem 2rem;   margin-left: 6rem;
  
 }
 .date{
@@ -82,7 +83,7 @@ display: flex;
 align-items: center;
 justify-content: center;
 margin: 1rem;
-  width: 100%;
+  width: 100%;   margin-left: 8rem;
 
 }
 .icon_content{
@@ -179,7 +180,7 @@ h4{
     </div>
 
       <div class="table1"> 
-        <div class="h3">Purchase History</div>
+        <div class="h3" style="margin-left: 6.5rem;">Purchase History</div>
       {% if done_orders %}
         {% for order in done_orders %}
         
@@ -250,7 +251,7 @@ h4{
               </div>
             </a>
 
-            <a class="content_container" href="{% url 'cart' %}">
+            <a class="content_container" href="{% url 'all-products' %}">
               <div class="content_container-link">
                 <div class="content">
                   <i class="fa-solid fa-cake-candles icon_content"></i>
