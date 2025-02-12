@@ -56,7 +56,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return render(request, 'home.html',{})
+    return redirect('home')
 
 @login_required
 def user_view(request):
@@ -74,7 +74,8 @@ def user_view(request):
 def done_order(request):
  
     done_orders = DoneOrder.objects.filter(user=request.user)
-    return render(request, 'dn-order.html', {'done_orders': done_orders})
+    count_dn_orders = DoneOrder.objects.filter(user=request.user).count()
+    return render(request, 'dn-order.html', {'done_orders': done_orders, 'count_dn_orders':count_dn_orders})
 
 # product 
 
@@ -324,4 +325,16 @@ def delete_order(request, order_id):
 def all_products(request):
     products = Product.objects.all()
     return render(request, 'all-products.html', {'products':products})
+
+
+def del_dn_orders(request, order_id):
+    order = get_object_or_404(DoneOrder, id=order_id, user=request.user)
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        if action == 'del_dn_order':
+            order.delete()
+            messages.success(request, 'Item Cleared')
+            return redirect('done_order')
+    messages.success(request, 'Invalid')
+    return redirect('done_order')
 
