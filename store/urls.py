@@ -36,7 +36,10 @@ urlpatterns = [
 
 
   path('done_order/', views.done_order, name='done_order'),
-  path('done_order/<int:order_id>/delete/' , views.del_dn_orders, name='delete_dn_orders')
+  path('done_order/<int:order_id>/delete/' , views.del_dn_orders, name='delete_dn_orders'),
+
+
+      path('search/', views.search_products, name='search-products'),
 
 
 ]

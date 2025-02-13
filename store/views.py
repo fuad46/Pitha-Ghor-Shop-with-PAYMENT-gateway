@@ -339,3 +339,9 @@ def del_dn_orders(request, order_id):
     messages.success(request, 'Invalid')
     return redirect('done_order')
 
+def search_products(request):
+    query = request.GET.get('q', '').strip()
+    products = Product.objects.filter(name__icontains=query) if query else []
+
+    return render(request, 'search.html', {'products': products, 'query': query})
+
