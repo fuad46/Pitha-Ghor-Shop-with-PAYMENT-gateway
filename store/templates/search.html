@@ -130,10 +130,12 @@
           </div>
         {% endfor %}
     {% else %}
-        <p style="display: flex; justify-content: center; align-items: center; color: #9e031d; font-weight: 400;">No products found matching "{{ query }}"</p>
+
         <div class="icon-err" style="color: #534d4e;font-size: 10rem; display: flex; justify-content: center; align-items: center; margin-top: 10rem;">
           <i class="fa-solid fa-globe"></i>
+          
         </div>
+        <p style="display: flex; justify-content: center; align-items: center; color: #9e031d; font-weight: 400;">No products found matching "{{ query }}"</p>
     {% endif %}
 
     <script>
