@@ -68,15 +68,25 @@ def user_view(request):
 def user_view(request):
     users = User.objects.all()
     products = Product.objects.all()
+   
     count_dn_orders = DoneOrder.objects.filter(user=request.user).count()
-    return render(request, 'user.html', {'users': users, 'products': products, 'count_dn_orders':count_dn_orders})
+    return render(request, 'user.html', 
+                  {'users': users, 'products': products, 
+                   'count_dn_orders':count_dn_orders,
+                
+                   }
+                  )
 
 @login_required
 def done_order(request):
  
     done_orders = DoneOrder.objects.filter(user=request.user)
     count_dn_orders = DoneOrder.objects.filter(user=request.user).count()
-    return render(request, 'dn-order.html', {'done_orders': done_orders, 'count_dn_orders':count_dn_orders})
+    count_cart = Storage1.objects.filter(user=request.user).count()
+    return render(request, 'dn-order.html', {
+        'done_orders': done_orders, 'count_dn_orders':count_dn_orders,
+        'count_cart': count_cart,
+        })
 
 # product 
 
@@ -182,7 +192,9 @@ def save_product(request, product_id):
 @login_required
 def saved_products(request):
     saved_items = Storage1.objects.filter(user=request.user) 
-    return render(request, 'cart.html', {'saved_items': saved_items})
+    count_dn_orders = DoneOrder.objects.filter(user=request.user).count()
+    count_cart = Storage1.objects.filter(user=request.user).count()
+    return render(request, 'cart.html', {'saved_items': saved_items, 'count_dn_orders':count_dn_orders, 'count_cart':count_cart})
 
 @login_required
 def delete_saved_product(request, item_id):

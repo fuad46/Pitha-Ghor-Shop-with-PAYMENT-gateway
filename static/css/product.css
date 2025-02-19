@@ -1,0 +1,17 @@
+@media (max-width: 450) {
+  .product_details_sec{
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+   
+  }
+  .product-info , .details{
+    font-size: .5rem;
+    font-weight: 300;
+    width: 30%;
+  }
+  .image{
+    padding: 0; margin: 0;
+  }
+}
