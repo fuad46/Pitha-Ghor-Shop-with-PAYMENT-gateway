@@ -44,6 +44,8 @@ urlpatterns = [
   path('admin-order/', views.status_admin_order, name='status-admin-order'),
   path('see-admin/', views.see_admin, name='see-admin'),
 
+  path('deluser/', views.seedeluser, name='deluser'),
+  path('delete_user_admin/<int:user_id>/delete/', views.delete_user_admin, name='admin-deluser'),
 
 ]
 

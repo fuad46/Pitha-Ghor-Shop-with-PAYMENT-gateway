@@ -192,7 +192,7 @@ h4{
       <div class="table1"> 
         <div class="h3" style="margin-left: 6.5rem; margin-left: 120px; margin-top: 40px;">Welcome Boss To Your Shop</div>
             <div class="table2">
-            <a class="content_container" href="{% url 'home' %}">
+            <a class="content_container" href="{% url 'admin-deluser' user.id %}">
               <div class="content_container-link">
                 <div class="content">
                   <i class="fa-solid fa-house icon_content"></i>
@@ -201,11 +201,11 @@ h4{
               </div>
             </a>
 
-            <a class="content_container" href="{% url 'cart' %}">
+            <a class="content_container" href="{% url 'user' %}">
               <div class="content_container-link">
                 <div class="content">
-                  <i class="fa-solid fa-cart-shopping icon_content"></i>
-                  <h4>My Cart ({{count_cart}})</h4>
+                  <i class="fa-solid fa-file-circle-plus icon_content"></i>
+                  <h4>Add Product</h4>
                 </div>
               </div>
             </a>
@@ -232,7 +232,7 @@ h4{
           </div> 
 
           <div class="table3">
-            <a class="content_container" href="{% url 'user' %}">
+            <a class="content_container" href="{% url 'see-admin' %}">
               <div class="content_container-link c1">
                 <div class="content">
               

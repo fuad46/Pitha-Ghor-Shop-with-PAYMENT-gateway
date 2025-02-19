@@ -218,6 +218,16 @@ background-color: #4d525a;
   cursor: pointer;
 
 }
+.product_btn{
+  width: 100%;
+  padding: 1rem 3rem;
+  background-color: #eb298a;
+  border-radius: 8px;
+
+}
+.product_btn:hover{
+  width: 100%;
+}
 </style>
 </head>
 <body>
@@ -234,44 +244,33 @@ background-color: #4d525a;
     </div>
 
       <div class="table1"> 
-        <div class="h3" style="margin-left: 6.5rem;">Cart Items</div>
-        {% if saved_items %}
-        {% for item in saved_items %}
+        <div class="h3" style="margin-left: 6.5rem;"> Customer Accounts</div>
         
-            <div class="table">
-             <img class="image name" src="{{ item.product.image.url }}" alt="img" >
-              <div class="name"> {{ item.product.name }} </div>
-              <div class="qty">Quantity: {{ item.quantity }} </div>
-              <div class="price"> {{ item.new_price }} BDT</div>
-              <div class="buy">
-              <form class="f" method="POST" action="{% url 'buy_item' item.id %}">
-                {% csrf_token %}
-                <button id="buy-btn" type="submit" name="action" value="keep-item" class="product_btn c1">BUY</button>
-            </form>
-          </div>
-              <!-- <div class="date"> {{order.order_date}} </div> -->
-            
-             
-              <form class="clear" method="POST" action="{% url 'delete_saved_product' item.id %}">
-                {% csrf_token %}
-                <button class="clear icon_clear" id="del-cart" type="submit" class="product_btn">
-                  <div class="del-con"><i class="fa-solid fa-xmark"></i> 
-                    <div class="del-title" style="font-size: 0.8rem;"> Delete </div> 
+                
+                {% for user in users %}
+                {% if not user.is_superuser %}
+                  <div class="user-entry table">
+                    <div class="date">{{ user.full_name }}</div>
+                      <form method="POST" action="{% url 'admin-deluser' user.id %}">
+                      {% csrf_token %}
+                      <button  type="submit" name="action" value="del_user"   class="product_btn c1">Delete</button>
+                    </form>
                   </div>
-                </button>
-              </form>
-           
-            </div>
+                {% endif %}
+              {% endfor %} 
+            
+      </div>
 
-        {% endfor %}
-        {% else %}
-        <div class="table">Items removed. <i class="fa-solid fa-trash"></i> 
-          
-        </div>
-        <a class="table a1" style="color: #f7f9fc; width: 20%; text-decoration: none;" href="{% url 'all-products' %}">Add Items &nbsp; <i class="fa-solid fa-plus "></i> </a>
+       
         
-            {% endif %}
+          
+        <!-- </div> -->
+
+        
+         
           <div class="table2">
+         
+
             <a class="content_container" href="{% url 'home' %}">
               <div class="content_container-link">
                 <div class="content">
@@ -280,74 +279,36 @@ background-color: #4d525a;
                 </div>
               </div>
             </a>
-
-            <a class="content_container" href="{% url 'cart' %}">
-              <div class="content_container-link c1">
+            <a class=" content_container " href="{% url 'done_order' %}">
+              <div class="content_container-link ">
                 <div class="content">
-                  <i class="fa-solid fa-cart-shopping icon_content"></i>
-                  <h4>My Cart ({{count_cart}})</h4>
+             
+                  <i class="fa-solid fa-face-smile icon_content icon_content1"></i>
+                  <h4>My Profile</h4>
                 </div>
               </div>
             </a>
-
-            <a class="content_container" href="{% url 'orders' user_id=user.id %}">
+            <a class="content_container" href="{% url 'user' %}">
               <div class="content_container-link">
                 <div class="content">
-                  <i class="fa-solid fa-bag-shopping icon_content"></i>
+              
                   {% if user.is_superuser %}
-                  <h4>All Orders </h4>
+                  <i class="fa-solid fa-wrench icon_content"></i>
+                  <h4>Admin</h4>
                   {% else %}
-                  <h4>My Order ({{order}})</h4>
+                 
+                  <i class="fa-solid fa-location-dot icon_content"></i>
+                  <h4>Address</h4>
                   {% endif %}
                 </div>
               </div>
             </a>
           </div> 
 
-          <div class="table3">
-            {% if user.is_superuser %}
-            <a class="content_container" href="{% url 'see-admin' %}">
-              <div class="content_container-link">
-                <div class="content">
-              
-                 
-                  <i class="fa-solid fa-wrench icon_content"></i>
-                  <h4>Admin Panel</h4>
-                  
-                </div>
-              </div>
-            </a>
-            {% else %}
-            <a class="content_container" href="{% url 'user' %}">
-              <div class="content_container-link">
-                <div class="content">
-                 
-                  <i class="fa-solid fa-location-dot icon_content"></i>
-                  <h4>Address</h4>
-                  
-                </div>
-              </div>
-            </a>
-            {% endif %}
+         
 
-            <a class="content_container" href="{% url 'all-products' %}">
-              <div class="content_container-link">
-                <div class="content">
-                  <i class="fa-solid fa-cake-candles icon_content"></i>
-                  <h4>All Products</h4>
-                </div>
-              </div>
-            </a>
-
-            <a class=" content_container " href="{% url 'done_order' %}">
-              <div class="content_container-link ">
-                <div class="content">
-                  <i class="fa-solid fa-sack-dollar icon_content icon_content1"></i>
-                  <h4>Purchased({{count_dn_orders}})</h4>
-                </div>
-              </div>
-            </a>
-          </div> 
+           
+          
       </div> 
       
 </div>

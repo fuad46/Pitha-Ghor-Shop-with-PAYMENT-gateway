@@ -377,3 +377,29 @@ def search_products(request):
 def see_admin(request):
     return render(request,'admin.html')
 
+def seedeluser(request):
+   users = User.objects.all()
+   return render(request, 'deluser.html', {'users':users})
+
+
+@login_required
+def delete_user_admin(request, user_id):
+ 
+    if request.method == "POST":
+        action = request.POST.get('action')
+        # Fetch the user to be deleted
+        user_to_delete = get_object_or_404(User, pk=user_id)
+        if action=='del_user':
+       
+            if not user_to_delete.is_superuser:
+                #  delete operation
+                user_to_delete.delete()
+                messages.success(request, f"Account: {user_to_delete.full_name} deleted successfully.")
+            else:
+            
+                messages.error(request, "Cannot delete a superuser.")
+    else:
+ 
+        messages.error(request, "Invalid request method.")
+
+    return redirect('deluser')  
