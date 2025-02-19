@@ -211,7 +211,7 @@ background-color: #4d525a;
   padding: 0;
   box-sizing: border-box;
   border-left: 8px solid #eb298a;
-  width: 20%;
+  width: 20%
 }
 .image:hover{
   opacity: 0.8;
@@ -294,7 +294,11 @@ background-color: #4d525a;
               <div class="content_container-link">
                 <div class="content">
                   <i class="fa-solid fa-bag-shopping icon_content"></i>
-                  <h4>Orders</h4>
+                  {% if user.is_superuser %}
+                  <h4>All Orders </h4>
+                  {% else %}
+                  <h4>My Order ({{order}})</h4>
+                  {% endif %}
                 </div>
               </div>
             </a>

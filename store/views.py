@@ -83,9 +83,10 @@ def done_order(request):
     done_orders = DoneOrder.objects.filter(user=request.user)
     count_dn_orders = DoneOrder.objects.filter(user=request.user).count()
     count_cart = Storage1.objects.filter(user=request.user).count()
+    order = Order.objects.filter(user=request.user).count()
     return render(request, 'dn-order.html', {
         'done_orders': done_orders, 'count_dn_orders':count_dn_orders,
-        'count_cart': count_cart,
+        'count_cart': count_cart, 'order':order,
         })
 
 # product 
@@ -194,7 +195,13 @@ def saved_products(request):
     saved_items = Storage1.objects.filter(user=request.user) 
     count_dn_orders = DoneOrder.objects.filter(user=request.user).count()
     count_cart = Storage1.objects.filter(user=request.user).count()
-    return render(request, 'cart.html', {'saved_items': saved_items, 'count_dn_orders':count_dn_orders, 'count_cart':count_cart})
+    order = Order.objects.filter(user=request.user).count()
+    return render(request, 'cart.html', {
+        'saved_items': saved_items, 
+        'count_dn_orders':count_dn_orders, 
+        'count_cart':count_cart, 
+        'order':order
+        })
 
 @login_required
 def delete_saved_product(request, item_id):
@@ -287,6 +294,15 @@ def see_orders(request, user_id=None):
     
     return render(request, "order.html", {"orders": orders})
 
+@login_required
+def status_admin_order(request, user_id=None):
+  
+    if request.user.is_superuser:
+        orders = Order.objects.all()  
+    else:
+        orders = Order.objects.filter(user=request.user)  
+    
+    return render(request, "admin-order.html", {"orders": orders})
 
 
 
@@ -356,4 +372,8 @@ def search_products(request):
     products = Product.objects.filter(name__icontains=query) if query else []
 
     return render(request, 'search.html', {'products': products, 'query': query})
+
+
+def see_admin(request):
+    return render(request,'admin.html')
 

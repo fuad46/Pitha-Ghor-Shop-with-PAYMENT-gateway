@@ -39,7 +39,10 @@ urlpatterns = [
   path('done_order/<int:order_id>/delete/' , views.del_dn_orders, name='delete_dn_orders'),
 
 
-      path('search/', views.search_products, name='search-products'),
+  path('search/', views.search_products, name='search-products'),
+
+  path('admin-order/', views.status_admin_order, name='status-admin-order'),
+  path('see-admin/', views.see_admin, name='see-admin'),
 
 
 ]

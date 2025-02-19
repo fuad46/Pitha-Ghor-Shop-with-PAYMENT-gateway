@@ -190,32 +190,8 @@ h4{
     </div>
 
       <div class="table1"> 
-        <div class="h3" style="margin-left: 6.5rem;">Purchase History</div>
-      {% if done_orders %}
-        {% for order in done_orders %}
-        
-            <div class="table">
-              <div class="name"> {{order.order_name}} </div>
-              <div class="qty">Quantity: {{order.quantity}} </div>
-              <div class="price">{{order.price}} BDT</div>
-              <div class="date"> {{order.order_date}} </div>
-            
-              <form class="clear" method="POST" action="{% url 'delete_dn_orders' order.id %}">
-                  {% csrf_token %}
-                  <button class="clear icon_clear" type="submit" name="action" value="del_dn_order">
-                    <div class="del-con"><i class="fa-solid fa-xmark"></i> 
-                      <div class="del-title" style="font-size: 0.8rem;"> Clear </div> 
-                    </div>
-                  </button>
-              </form>
-              
-            </div>
-
-        {% endfor %}
-        {% else %}
-        <div class="table">History Cleared. <i class="fa-solid fa-trash"></i></div>
-            {% endif %}
-          <div class="table2">
+        <div class="h3" style="margin-left: 6.5rem; margin-left: 120px; margin-top: 40px;">Welcome Boss To Your Shop</div>
+            <div class="table2">
             <a class="content_container" href="{% url 'home' %}">
               <div class="content_container-link">
                 <div class="content">
@@ -256,33 +232,22 @@ h4{
           </div> 
 
           <div class="table3">
-            {% if user.is_superuser %}
-            <a class="content_container" href="{% url 'see-admin' %}">
-              <div class="content_container-link">
+            <a class="content_container" href="{% url 'user' %}">
+              <div class="content_container-link c1">
                 <div class="content">
               
-                 
+                  {% if user.is_superuser %}
                   <i class="fa-solid fa-wrench icon_content"></i>
                   <h4>Admin Panel</h4>
-                 
-                 
-                 
-                  
-                </div>
-              </div>
-            </a>
-            {% else %}
-            <a class="content_container" href="{% url 'user' %}">
-              <div class="content_container-link">
-                <div class="content">
+                  {% else %}
                  
                   <i class="fa-solid fa-location-dot icon_content"></i>
                   <h4>Address</h4>
-                  
+                  {% endif %}
                 </div>
               </div>
             </a>
-            {% endif %}
+
             <a class="content_container" href="{% url 'all-products' %}">
               <div class="content_container-link">
                 <div class="content">
@@ -293,10 +258,11 @@ h4{
             </a>
 
             <a class=" content_container " href="{% url 'done_order' %}">
-              <div class="content_container-link c1">
+              <div class="content_container-link ">
                 <div class="content">
-                  <i class="fa-solid fa-sack-dollar icon_content icon_content1"></i>
-                  <h4>Purchased({{count_dn_orders}})</h4>
+             
+                  <i class="fa-solid fa-face-smile icon_content icon_content1"></i>
+                  <h4>My Profile</h4>
                 </div>
               </div>
             </a>

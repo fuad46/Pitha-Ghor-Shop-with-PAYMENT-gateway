@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="{% static 'css/order.css' %}">
+
+
+<style>
+    
+nav{
+  width: 100%;
+  display: flex;
+ align-items: center;
+ justify-content: center;
+ margin: 0;
+ padding: 2rem;
+ box-shadow: 0px 4px 10px rgba(46, 46, 48, 0.2)
+ }
+</style>
+</head>
+
+<body>
+    <div class="hero">
+        {{ user.full_name }}'s Buying List <br>
+        <div class="msg-err">
+            {% for m in messages %}
+                ___{{m}}
+            {% endfor %}
+        </div>
+       </div>
+    <nav>
+    <div class="logo" > Shop</div>
+    <div class="nav-r">
+        <a href="{% url 'done_order' %}">My Profile</a>
+    </div>
+    
+    </nav>
+   
+
+
+<div class="table-sec1">
+    <h2>All Orders</h2>
+<div class="table">
+    <div class="thead">
+        <div class="tr">
+          
+            <div class="th">Product</div>
+            <div class="th">Quantity</div>
+            <div class="th">Price</div>
+            <div class="th">Status</div>
+            <div class="th">Order Date</div>
+            <div class="th">CASH PAY</div>
+        </div>
+    </div>
+    <div class="tbody">
+        {% if orders %}
+        {% for order in orders %}
+        <div class="tr1">
+       
+            <div class="td">{{ order.product.name }}</div>
+            <div class="td">{{ order.quantity }}</div>
+            <div class="td">{{ order.price }}</div>
+            <div class="td">{{ order.status }}</div>
+            <div class="td">{{ order.order_date }}</div>
+            <div class="td">
+                <form method="POST" action="{% url 'pay_order' order.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="{{ order.id }}">
+                    {% if order.status == "Pending" %}
+                        <button type="submit" name="action" value="pay_order" class="btn btn-primary btn-pay">
+                            Pay
+                        </button>
+                    {% else %}
+                        <span>Paid</span>
+                        
+                    {% endif %}
+                </form>
+                   
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="td">NO ORDERS.  <a href="{% url 'home' %}" >  <strong>BUY More>></strong></a></div>
+        {% endif %}
+    </div>
+</div>
+</div>
