@@ -226,19 +226,19 @@ a{
 {% if user.is_superuser %}
 
 <div class="user" style="box-shadow: 02px 04px 15px rgba(200, 209, 230, 0.23); border-radius: 16px; width: 99%; display: flex;
-align-items: center; justify-content: center; background-color: #ffffff;">
-  <h1>Admin Pannel</h1> 
+align-items: center; justify-content: center; background-color: #ffffff; margin: 80px;">
+  <h1>Add New Product</h1> 
   
-  <div class="user_info_sec">
+  <!-- <div class="user_info_sec">
     <div class="user_info"><span class="label">Name:</span>  <span class="label_info">{{ user.full_name }}</span>   </div>
     <div class="user_info"><span class="label">Email:</span> <span class="label_info"> {{user.email}} </span>       </div> 
-  </div>  
+  </div>   -->
 </div>
-<div class="msg-err">
+<!-- <div class="msg-err">
   {% for m in messages %}
     {{m}}
   {% endfor %}
-</div>
+</div> -->
 
 {% else %}
 <div class="user" style="box-shadow: 02px 04px 15px rgba(200, 209, 230, 0.23); margin-top: 240px;">
@@ -272,7 +272,7 @@ align-items: center; justify-content: center; background-color: #ffffff;">
 <br><br><br><br><br> -->
   
   <!-- add product start -->
-  <h2>Add New Product</h2>
+  <!-- <h2>Add New Product</h2> -->
   <div id="product-ops"> 
   <div id="form-p">
 <form action="{% url 'add_product' %}" method="post" enctype="multipart/form-data">

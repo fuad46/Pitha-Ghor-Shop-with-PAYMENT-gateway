@@ -195,8 +195,9 @@ h4{
             <a class="content_container" href="{% url 'admin-deluser' user.id %}">
               <div class="content_container-link">
                 <div class="content">
-                  <i class="fa-solid fa-house icon_content"></i>
-                  <h4>Home</h4>
+                
+                  <i class="fa-solid fa-user-xmark icon_content"></i>
+                  <h4>Customer</h4>
                 </div>
               </div>
             </a>
@@ -210,6 +211,7 @@ h4{
               </div>
             </a>
 
+         
             {% if user.is_superuser %}
             <a class="content_container" href="{% url 'status-admin-order'%}">
               <div class="content_container-link">
@@ -224,7 +226,7 @@ h4{
               <div class="content_container-link">
                 <div class="content">
                   <i class="fa-solid fa-bag-shopping icon_content"></i>
-                  <h4>My Order ({{order}})</h4>
+                  <h4>Order ({{order}})</h4>
                 </div>
               </div>
             </a>

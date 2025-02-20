@@ -290,18 +290,26 @@ background-color: #4d525a;
               </div>
             </a>
 
+            
+            {% if user.is_superuser %}
+            <a class="content_container" href="{% url 'status-admin-order'%}">
+              <div class="content_container-link">
+                <div class="content">
+                  <i class="fa-solid fa-bag-shopping icon_content"></i>
+                  <h4>All Orders </h4>
+                </div>
+              </div>
+            </a>
+            {% else %}
             <a class="content_container" href="{% url 'orders' user_id=user.id %}">
               <div class="content_container-link">
                 <div class="content">
                   <i class="fa-solid fa-bag-shopping icon_content"></i>
-                  {% if user.is_superuser %}
-                  <h4>All Orders </h4>
-                  {% else %}
-                  <h4>My Order ({{order}})</h4>
-                  {% endif %}
+                  <h4>Order ({{order}})</h4>
                 </div>
               </div>
             </a>
+            {% endif %}
           </div> 
 
           <div class="table3">

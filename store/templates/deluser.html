@@ -271,35 +271,36 @@ background-color: #4d525a;
           <div class="table2">
          
 
-            <a class="content_container" href="{% url 'home' %}">
-              <div class="content_container-link">
-                <div class="content">
-                  <i class="fa-solid fa-house icon_content"></i>
-                  <h4>Home</h4>
-                </div>
-              </div>
-            </a>
+    
             <a class=" content_container " href="{% url 'done_order' %}">
               <div class="content_container-link ">
                 <div class="content">
              
                   <i class="fa-solid fa-face-smile icon_content icon_content1"></i>
-                  <h4>My Profile</h4>
+                  <h4>Profile</h4>
                 </div>
               </div>
             </a>
-            <a class="content_container" href="{% url 'user' %}">
+
+            <a class="content_container" href="{% url 'see-admin' %}">
               <div class="content_container-link">
                 <div class="content">
               
-                  {% if user.is_superuser %}
+                 
                   <i class="fa-solid fa-wrench icon_content"></i>
                   <h4>Admin</h4>
-                  {% else %}
-                 
-                  <i class="fa-solid fa-location-dot icon_content"></i>
-                  <h4>Address</h4>
-                  {% endif %}
+                  
+                </div>
+              </div>
+            </a>
+
+            
+            <a class="content_container" href="{% url 'deluser' %}">
+              <div class="content_container-link c1">
+                <div class="content">
+                  
+                  <i class="fa-solid fa-user-xmark icon_content"></i>
+                  <h4>Customer</h4>
                 </div>
               </div>
             </a>
