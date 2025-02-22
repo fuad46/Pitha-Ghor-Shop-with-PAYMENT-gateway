@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cart</title>
+  <title>admin</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
@@ -246,7 +246,6 @@ background-color: #4d525a;
       <div class="table1"> 
         <div class="h3" style="margin-left: 6.5rem;"> Customer Accounts</div>
         
-                
                 {% for user in users %}
                 {% if not user.is_superuser %}
                   <div class="user-entry table">
