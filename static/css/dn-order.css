@@ -3,7 +3,9 @@ body{
   margin: 0;
   font-family: 'Poppins';
   /* background-color: #f7f9fc; */
-  background-color: #050f1b;
+
+  /* black background-color  */
+  /* background-color: #050f1b;  */
   color: #f7f9fc;
 }
 .icon-user{

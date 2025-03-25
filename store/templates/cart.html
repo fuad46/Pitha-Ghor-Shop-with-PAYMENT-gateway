@@ -110,7 +110,8 @@ margin: 1rem;
 }
 h3, .h3{
   font-size: 1.3rem;
-  color: #ffffff;
+  /* color: #ffffff;  */
+  color: #021a35;
   font-weight: 500;
   display: flex;
   justify-content: start;
@@ -159,10 +160,12 @@ h4{
   font-size: 1rem; border: none; background: none; color: #f7f9fc; display: flex; position: relative; left: .5rem;
 }
 .del-con{
-  display: flex; flex-direction: column;
+  display: flex; flex-direction: column; 
+  color: #021a35;
 }
 .del-title{
   font-family: 8px; font-weight: 400; margin-top: .25rem;
+  color: #021a35;
 }
 .del-con:hover{
   width: 2.1rem;
@@ -218,6 +221,18 @@ background-color: #4d525a;
   cursor: pointer;
 
 }
+body{
+  padding: 0;
+  margin: 0;
+  font-family: 'Poppins';
+  
+  /* white background-color  */
+  background-color: #f7f9fc;
+
+  /* black background-color  */
+  /* background-color: #050f1b;  */
+  color: #f7f9fc;
+}
 </style>
 </head>
 <body>
@@ -268,7 +283,9 @@ background-color: #4d525a;
         <div class="table">Items removed. <i class="fa-solid fa-trash"></i> 
           
         </div>
-        <a class="table a1" style="color: #f7f9fc; width: 20%; text-decoration: none;" href="{% url 'all-products' %}">Add Items &nbsp; <i class="fa-solid fa-plus "></i> </a>
+        <a class="table a1" 
+        style="color: #f7f9fc;width: 20%; text-decoration: none;" 
+        href="{% url 'all-products' %}">Add Items &nbsp; <i class="fa-solid fa-plus "></i> </a>
         
             {% endif %}
           <div class="table2">

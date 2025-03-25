@@ -14,10 +14,22 @@
     <!-- icons -->
     <script src="https://kit.fontawesome.com/59e7337c41.js" crossorigin="anonymous"></script>
   <style>
-    body{
+    /* body{
       font-family: "Poppins", serif;
       font-weight: 400;
       background-color: #FFFFFF;
+    } */
+    body{
+      padding: 0;
+      margin: 0;
+      font-family: 'Poppins';
+      
+      /* white background-color  */
+      background-color: #f7f9fc;
+
+      /* black background-color  */
+      /* background-color: #050f1b;  */
+      color: #f7f9fc;
     }
     .hero{
       height: 8.4rem;
@@ -200,6 +212,9 @@ a{
 .icon_content{
   font-size: 2rem;
 }
+.td-admin-product{
+  color: #01163d;
+}
   </style>
 </head>
 <body style="background-color: #fafdff;">
@@ -306,20 +321,20 @@ align-items: center; justify-content: center; background-color: #ffffff; margin:
   <table  id="products">
     <thead>
         <tr>
-            <th>Product Name</th>
+            <th class="td-admin-product">Product Name</th>
           
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Actions</th>
+            <th class="td-admin-product">Price</th>
+            <th class="td-admin-product">Quantity</th>
+            <th class="td-admin-product">Actions</th>
         </tr>
     </thead>
     <tbody>
         {% for product in products %}
         <tr>
-            <td>{{ product.name }}</td>
+            <td class="td-admin-product">{{ product.name }}</td>
          
-            <td>{{ product.price }}</td>
-            <td>{{ product.quantity }}</td>
+            <td class="td-admin-product">{{ product.price }}</td>
+            <td class="td-admin-product">{{ product.quantity }}</td>
             <td>
                 <!-- Delete Button -->
                 <form action="{% url 'delete_product' product.id %}" method="post" style="display:inline;">
