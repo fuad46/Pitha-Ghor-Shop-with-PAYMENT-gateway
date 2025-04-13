@@ -330,7 +330,7 @@ def admin_orders(request):
         order.save()
         messages.success(request, f"Order {order_id} updated successfully.")
 
-    return render(request, "order.html", {"orders": orders})
+    return render(request, "admin-order.html", {"orders": orders})
 
 @user_passes_test(lambda u: u.is_superuser)
 
