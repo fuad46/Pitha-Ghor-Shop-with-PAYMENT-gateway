@@ -23,6 +23,16 @@ nav{
  padding: 2rem;
  box-shadow: 0px 4px 10px rgba(46, 46, 48, 0.2)
  }
+
+
+   
+ .dis{
+    cursor: not-allowed;
+    background-color: #6d6e6e;
+    color: #f9fbff;
+ }
+  
+
 </style>
 </head>
 
@@ -136,8 +146,15 @@ nav{
                     <form method="POST" action="{% url 'admin_orders' %}">
                         {% csrf_token %}
                         <div class="actions-l">
+                           
                         <input type="hidden" name="order_id" value="{{ order.id }}">
+                        {% if order.status == "Pending" %}
                         <button type="submit" name="action" value="confirm_order" class="btn btn-success">Confirm</button>
+                        {% elif order.status == "Cancelled" %}
+                        <button type="submit" name="action" value="confirm_order" class="btn btn-success">Confirm</button>
+                        {% elif order.status == "Confirmed" %}
+                        <button  class="dis btn btn-success ">Confirm</button>
+                        {% endif %}
                         <button type="submit" name="action" value="cancel_order" class="btn btn-warning">Cancel</button>
                         </div>
                     </form>
@@ -145,6 +162,7 @@ nav{
                     <div class="actions-r">
                         <form method="POST" action="{% url 'delete_order' order_id=order.id %}">
                             {% csrf_token %}
+                            
                             <button type="submit" name="action" value="delete_order" class="btn btn-danger">Delete</button>
                         </form>
                     </div>
