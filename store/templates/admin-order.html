@@ -23,6 +23,7 @@ nav{
  padding: 2rem;
  box-shadow: 0px 4px 10px rgba(46, 46, 48, 0.2)
  }
+
 </style>
 </head>
 
@@ -74,9 +75,15 @@ nav{
                     {% csrf_token %}
                     <input type="hidden" name="order_id" value="{{ order.id }}">
                     {% if order.status == "Pending" %}
+                    {% if user.is_superuser %}
+                    <button  class="btn btn-primary btn-pay" title="Payment not done yet! Admin Can confirm or cancel If Not PAID ">
+                       <a  href="{% url 'admin_orders' %}">Proceed</a> 
+                    </button>
+                    {% else %}
                         <button type="submit" name="action" value="pay_order" class="btn btn-primary btn-pay">
                             Pay
                         </button>
+                    {% endif %}
                     {% else %}
                         <span>Paid</span>
                         

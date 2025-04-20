@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orders</title>
+  <title>Ordered</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
@@ -28,8 +28,8 @@ nav{
    
  .dis{
     cursor: not-allowed;
-    background-color: #6d6e6e;
-    color: #f9fbff;
+    background-color: #b1b1b1;
+    color: #d8d7d7;
  }
   
 
@@ -150,12 +150,25 @@ nav{
                         <input type="hidden" name="order_id" value="{{ order.id }}">
                         {% if order.status == "Pending" %}
                         <button type="submit" name="action" value="confirm_order" class="btn btn-success">Confirm</button>
-                        {% elif order.status == "Cancelled" %}
+                        {% elif order.status == "Paid" %}
                         <button type="submit" name="action" value="confirm_order" class="btn btn-success">Confirm</button>
+                        {% elif order.status == "Cancelled" %}
+                        <!-- <button type="submit" name="action" value="confirm_order" class="btn btn-success">Confirm</button> -->
+                        <button  class="dis btn btn-success ">Confirm</button>
                         {% elif order.status == "Confirmed" %}
                         <button  class="dis btn btn-success ">Confirm</button>
                         {% endif %}
+                    
+                        <!-- <button type="submit" name="action" value="cancel_order" class="btn btn-warning">Cancel</button> -->
+                        {% if order.status == "Pending" %}
                         <button type="submit" name="action" value="cancel_order" class="btn btn-warning">Cancel</button>
+                        {% elif order.status == "Paid" %}
+                        <button type="submit" name="action" value="cancel_order" class="btn btn-warning">Cancel</button>
+                        {% endif %}
+                      
+                     
+                       
+                      
                         </div>
                     </form>
 
