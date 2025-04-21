@@ -86,7 +86,7 @@ nav{
                     {% csrf_token %}
                     <input type="hidden" name="order_id" value="{{ order.id }}">
                     {% if order.status == "Pending" %}
-                        <button type="submit" name="action" value="pay_order" class="btn btn-primary btn-pay">
+                        <button type="submit" name="action" value="pay_order" class="btn btn-primary btn-pay" onclick="clicked()">
                             Pay
                         </button>
                     {% else %}
@@ -154,9 +154,9 @@ nav{
                         <button type="submit" name="action" value="confirm_order" class="btn btn-success">Confirm</button>
                         {% elif order.status == "Cancelled" %}
                         <!-- <button type="submit" name="action" value="confirm_order" class="btn btn-success">Confirm</button> -->
-                        <button  class="dis btn btn-success ">Confirm</button>
+                        <button  class="dis btn btn-success " title="Only Confirm Once">Confirm</button>
                         {% elif order.status == "Confirmed" %}
-                        <button  class="dis btn btn-success ">Confirm</button>
+                        <button  class="dis btn btn-success " title="Only Confirm Once">Confirm</button>
                         {% endif %}
                     
                         <!-- <button type="submit" name="action" value="cancel_order" class="btn btn-warning">Cancel</button> -->
@@ -176,11 +176,15 @@ nav{
                         <form method="POST" action="{% url 'delete_order' order_id=order.id %}">
                             {% csrf_token %}
                             
-                            <button type="submit" name="action" value="delete_order" class="btn btn-danger">Delete</button>
+                            <button type="submit" name="action" value="delete_order" class="btn btn-danger" 
+                             title="Warning ! Action will Remove History from User Database" onclick="showalert()"
+                            >Delete</button>
                         </form>
                     </div>
                 </div>
+
             </div>
+            
              <!-- action ends  -->
         </div>
         {% endfor %}
@@ -193,6 +197,13 @@ nav{
 
 {% endif %}
 
-
+<script>
+        function showalert(){
+           
+            window.alert(`Delete Action Completed`);
+            
+        }
+      
+</script>
 </body>
 </html>
