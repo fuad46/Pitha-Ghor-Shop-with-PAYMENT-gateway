@@ -24,7 +24,7 @@ urlpatterns = [
   path('order/', views.see_orders, name='see_orders'),
    path('orders/<int:user_id>/', views.see_orders, name='orders'),  
   path('orders/admin/', views.admin_orders, name='admin_orders'),
-  # path('orders/pay/<int:order_id>/', views.pay_order, name='pay_order'),
+  path('orders/pay/<int:order_id>/', views.pay_order, name='pay_order'),
 
 
   path('orders/<int:order_id>/delete/', views.delete_order, name='delete_order'),
@@ -36,6 +36,8 @@ urlpatterns = [
 
 # paypal
   path('orders/paypal-complete/<int:order_id>/', views.paypal_complete, name='paypal_complete'),
+  path('orders/<int:user_id>/', views.see_orders, name='orders'),
+  path('orders/paypal-complete/<int:order_id>/',views.paypal_complete,name='paypal_complete'),
 # paypal
 
 
@@ -52,5 +54,7 @@ urlpatterns = [
   path('delete_user_admin/<int:user_id>/delete/', views.delete_user_admin, name='admin-deluser'),
 
 ]
+
+
 
 

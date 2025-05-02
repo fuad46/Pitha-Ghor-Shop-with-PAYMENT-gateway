@@ -279,7 +279,7 @@ def paypal_complete(request, order_id):
     order.status = 'Paid'
     order.save()
 
-    return redirect('orders', order_id=order.id)
+    return redirect('orders', user_id=request.user.id)
 
 # paypal
 

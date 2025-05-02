@@ -101,7 +101,7 @@ nav{
                   // Render the PayPal button
                   paypal.Buttons({
                     createOrder: function(data, actions) {
-                      // Set up the transaction: use order.total from your context
+                      
                       return actions.order.create({
                         purchase_units: [{
                           amount: { value: '{{ order.price }}' }
@@ -109,9 +109,9 @@ nav{
                       });
                     },
                     onApprove: function(data, actions) {
-                      // Capture the payment
+                  
                       return actions.order.capture().then(function(details) {
-                        // Fill the hidden form and submit to Django
+                        
                         document.getElementById('paypal_order_id').value = data.orderID;
                         document.getElementById('paypal_transaction_id').value = details.id;
                         document.getElementById('paypal-form').submit();
