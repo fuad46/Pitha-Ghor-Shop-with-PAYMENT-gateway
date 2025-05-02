@@ -154,5 +154,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SECURE_CROSS_ORIGIN_OPENER_POLICY = "same-origin-allow-popups"
 
 
-PAYPAL_CLIENT_ID = 'AaChGKfIL-Qz0PrUErEgFbhg7CVFLEU-WAippXu1oB5mXwlDCgRxLLyXPazULwKXGvghbOxLNIJG9lmL'
-PAYPAL_SECRET_KEY = 'ECSo8RslgtnG1orgR4O-Qj1jY1711_lQPYMk_pQ_Bnf7MfacGX_-syC-HJWKacRaq8q1OvDpY7mXBAld'
