@@ -24,7 +24,7 @@ urlpatterns = [
   path('order/', views.see_orders, name='see_orders'),
    path('orders/<int:user_id>/', views.see_orders, name='orders'),  
   path('orders/admin/', views.admin_orders, name='admin_orders'),
-  path('orders/pay/<int:order_id>/', views.pay_order, name='pay_order'),
+  # path('orders/pay/<int:order_id>/', views.pay_order, name='pay_order'),
 
 
   path('orders/<int:order_id>/delete/', views.delete_order, name='delete_order'),
@@ -33,6 +33,10 @@ urlpatterns = [
  
   path('orders/admin/', views.admin_orders, name='admin_orders'),
   path('all-products', views.all_products, name='all-products'),
+
+# paypal
+  path('orders/paypal-complete/<int:order_id>/', views.paypal_complete, name='paypal_complete'),
+# paypal
 
 
   path('done_order/', views.done_order, name='done_order'),

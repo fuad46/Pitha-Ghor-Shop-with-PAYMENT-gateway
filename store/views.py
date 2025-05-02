@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from .models import User, Product, Storage1, Order, DoneOrder
 from django.contrib import messages
-# from django.urls import reverse
+from django.views.decorators.http import require_POST
 from django.http import HttpResponse
 import logging
 
@@ -267,6 +267,21 @@ def pay_order(request, order_id):
     
     return redirect( 'orders', user_id=request.user.id)  
 
+# paypal
+@require_POST
+def paypal_complete(request, order_id):
+ 
+    order = get_object_or_404(Order, id=order_id)
+   
+    paypal_order_id = request.POST.get('paypal_order_id')
+    transaction_id = request.POST.get('paypal_transaction_id')
+    
+    order.status = 'Paid'
+    order.save()
+
+    return redirect('orders', order_id=order.id)
+
+# paypal
 
 @login_required
 def see_orders(request, user_id):

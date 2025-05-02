@@ -80,19 +80,48 @@ nav{
             <div class="td">{{ order.status }}</div>
             <div class="td">{{ order.order_date }}</div>
             <div class="td">
-                <form method="POST" action="{% url 'pay_order' order.id %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="order_id" value="{{ order.id }}">
-                    {% if order.status == "Pending" %}
-                        <button type="submit" name="action" value="pay_order" class="btn btn-primary btn-pay" onclick="clicked()">
-                            Pay
-                        </button>
-                    {% else %}
-                        <span>Paid</span>
-                        
-                    {% endif %}
+                
+
+                <!-- paypal  -->
+                {% if order.status == 'Pending' %}
+                <!-- PayPal SDK (sandbox) -->
+                <script src="https://www.paypal.com/sdk/js?client-id=AaChGKfIL-Qz0PrUErEgFbhg7CVFLEU-WAippXu1oB5mXwlDCgRxLLyXPazULwKXGvghbOxLNIJG9lmL"></script>
+                
+                <!-- Container for the PayPal button -->
+                <div id="paypal-button-container"></div>
+                
+                <!-- Hidden form to send PayPal data to Django -->
+                <form id="paypal-form" method="post" action="{% url 'paypal_complete' order.id %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="paypal_order_id" id="paypal_order_id">
+                  <input type="hidden" name="paypal_transaction_id" id="paypal_transaction_id">
                 </form>
-                   
+                
+                <script>
+                  // Render the PayPal button
+                  paypal.Buttons({
+                    createOrder: function(data, actions) {
+                      // Set up the transaction: use order.total from your context
+                      return actions.order.create({
+                        purchase_units: [{
+                          amount: { value: '{{ order.price }}' }
+                        }]
+                      });
+                    },
+                    onApprove: function(data, actions) {
+                      // Capture the payment
+                      return actions.order.capture().then(function(details) {
+                        // Fill the hidden form and submit to Django
+                        document.getElementById('paypal_order_id').value = data.orderID;
+                        document.getElementById('paypal_transaction_id').value = details.id;
+                        document.getElementById('paypal-form').submit();
+                      });
+                    }
+                  }).render('#paypal-button-container');
+                </script>
+              {% endif %}
+           
+                <!-- paypal  -->
             </div>
         </div>
         {% endfor %}
