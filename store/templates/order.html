@@ -66,7 +66,7 @@ nav{
             <div class="th">Price</div>
             <div class="th">Status</div>
             <div class="th">Order Date</div>
-            <div class="th">CASH PAY</div>
+            <div class="th">Payment</div>
         </div>
     </div>
     <div class="tbody">
@@ -84,13 +84,13 @@ nav{
 
                 <!-- paypal  -->
                 {% if order.status == 'Pending' %}
-                <!-- PayPal SDK (sandbox) -->
+                
                 <script src="https://www.paypal.com/sdk/js?client-id=AaChGKfIL-Qz0PrUErEgFbhg7CVFLEU-WAippXu1oB5mXwlDCgRxLLyXPazULwKXGvghbOxLNIJG9lmL"></script>
                 
-                <!-- Container for the PayPal button -->
+                
                 <div id="paypal-button-container"></div>
                 
-                <!-- Hidden form to send PayPal data to Django -->
+              
                 <form id="paypal-form" method="post" action="{% url 'paypal_complete' order.id %}">
                   {% csrf_token %}
                   <input type="hidden" name="paypal_order_id" id="paypal_order_id">
@@ -98,7 +98,7 @@ nav{
                 </form>
                 
                 <script>
-                  // Render the PayPal button
+                 
                   paypal.Buttons({
                     createOrder: function(data, actions) {
                       
