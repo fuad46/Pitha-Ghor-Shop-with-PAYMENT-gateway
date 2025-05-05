@@ -10,10 +10,56 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="{% static 'css/register.css'%}">
+<style>
 
+  body{
+    background: #EEAECA;
+    background: radial-gradient(circle,rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+  }
+  .right{
+ 
+    background: rgba(255, 255, 255); /* semi-transparent */
+  backdrop-filter: blur(10px);         /* main glass effect */
+  -webkit-backdrop-filter: blur(10px); /* for Safari support */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  color: white;
+  margin-right: 3rem;
+  /* background: #f4f4f4; */
+  }
+.left{
+  background: rgba(27, 57, 117, 0.589); 
+  backdrop-filter: blur(10px);        
+  -webkit-backdrop-filter: blur(10px); 
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  color: white;
+ 
+}
+input{
+  background: none;
+  color: #500707;
+  border: 2px solid rgb(44, 91, 177); 
+  
+  
+}
+input::placeholder{
+color: #290505;
+font-size: 1rem;
+}
+input:focus {
+  border: 1.5px solid rgb(96, 106, 192); /* ensure border stays white on focus */
+  outline: none;
+  font-size: 1rem;
+}
+</style>
 </head>
 <body>
-  <div class="logo"> Shop</div>
+  <div class="logo" > <span style="font-size: larger; color: #45035f7a;">Pitaghor</span>Shop</div>
 {% if error %}
     <p style="color: rgb(233, 8, 38)">{{ error }}</p>
 {% endif %}

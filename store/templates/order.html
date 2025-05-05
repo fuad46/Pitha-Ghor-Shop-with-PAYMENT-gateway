@@ -31,6 +31,14 @@ nav{
     background-color: #b1b1b1;
     color: #d8d7d7;
  }
+ .hero{
+    background:  linear-gradient(to right, #b80707d3, rgba(244, 244, 244, 0.96));
+}
+body{
+ 
+    /* background: radial-gradient(circle,rgb(58, 116, 233) 0%, rgb(151, 163, 224) 100%); */
+    background: linear-gradient(0deg,rgb(250, 250, 255) 72%, rgb(32, 38, 126) 100%);
+}
 </style>
 </head>
 
@@ -44,9 +52,9 @@ nav{
         </div> -->
        </div>
     <nav>
-    <div class="logo" > Shop</div>
+        <div class="logo" > <span style="font-size: larger; color: #09003a;">Pitaghor</span> <span style="color: #f4f4f4;">Shop</span></div>
     <div class="nav-r">
-        <a href="{% url 'done_order' %}">My Profile</a>
+        <a style="color: #f4f4f4;" href="{% url 'done_order' %}">My Profile</a>
     </div>
     
     </nav>
@@ -85,9 +93,14 @@ nav{
                 <!-- paypal  -->
                 {% if order.status == 'Pending' %}
                 
-                <script src="https://www.paypal.com/sdk/js?client-id=AaChGKfIL-Qz0PrUErEgFbhg7CVFLEU-WAippXu1oB5mXwlDCgRxLLyXPazULwKXGvghbOxLNIJG9lmL"></script>
-                
-                
+                <script 
+                src="https://www.paypal.com/sdk/js?client-id="> 
+                </script>
+              
+                <!-- <script
+                      src="https://www.paypal.com/sdk/js?client-id=${{api_key}}">
+                    
+                </script> -->
                 <div id="paypal-button-container"></div>
                 
               

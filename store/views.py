@@ -267,6 +267,8 @@ def pay_order(request, order_id):
     
     return redirect( 'orders', user_id=request.user.id)  
 
+def secrect_key(request):
+    api_key = Api_key
 # paypal
 @require_POST
 def paypal_complete(request, order_id):

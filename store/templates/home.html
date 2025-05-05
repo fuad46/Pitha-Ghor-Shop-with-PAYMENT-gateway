@@ -11,6 +11,7 @@
 
 
   <link rel="stylesheet" href="{% static 'css/home.css'%}">
+  <link rel="stylesheet" href="{% static 'css/media.css' %}">
   
 
 <style>
@@ -146,33 +147,67 @@ input[type=number]{
 }
 .product_info{
   width: 85%;}
+  .nav-r{
+   /* background: linear-gradient(to left, #5a84d1, rgba(244, 244, 244, 0.96)); */
+   border-radius: 22px ;
+   border: 2px solid #e3e9f0;
+   /* background: #342eab; */
+   background: radial-gradient(circle,rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%);
+   padding: 8px;
+ 
+  }
+  .a1{
+    color: #ffffff;
+  }
+  /* .hero{
+    
+    background: #ffffff;
+    background: linear-gradient(0deg,rgba(255, 255, 255, 1) 0%, rgba(45, 139, 253, 1) 100%);
+    border-bottom: 2px solid hsl(197, 33%, 96%);
+  } */
+   .hero1-r{
+    
+    margin-left: 40px;
+  }
+
+  .hero1, .hero1-r{
+    height: 1000px;
+  }
+   
+  .a1:hover{
+    color: #b40eb9;
+    background: #f7f7fd;
+    border-radius: 12px;
+    padding: 4px;
+    font-weight: bold;
+    transition: all 0.8s ease;
+  }
   </style>
 </head>
 
 <body>
-  <div class="hero" style="width: 100%; font-size: 1rem; height: 40px; margin: 0 ;">
-    HOME
+  <div class="hero" style="width: 100%; font-size: .9rem; height: 40px; margin: 0 ;">
+    HOME 
   </div>
   <nav>
-    <div class="logo" > Shop</div>
+    <div class="logo" > <span style="font-size: larger; color: #45035f7a;">Pitaghor</span>Shop</div>
       <div class="nav-r" >
         {% if user.is_authenticated %}
 
-        <a href="{% url 'all-products'%}">All product</a> 
-        <a href="{% url 'done_order' %}">My Profile</a> 
-        
-        <a href="{% url 'cart'%}">Cart</a>  
-        <a href="{% url 'logout' %}">Logout</a>
+        <a class='a1' href="{% url 'all-products'%}">All product</a> 
+        <a class='a1' href="{% url 'done_order' %}">My Profile</a> 
+        <a class='a1' href="{% url 'cart'%}">Cart</a>  
+        <a class='a1' href="{% url 'logout' %}">Logout</a>
         
         {% else %}
-        <a href="/register/">Register</a>  <a href="/login/">Login</a>
+        <a class="a1" href="/register/">Register</a>  <a class="a1" href="/login/">Login</a>
         
         {% endif %}
       </div>  
   </nav>
   <div class="hero1">
-    <img style="width: 50%; height: 600px; border-radius: 0 108px 108px 0px;" src="https://media.sciencephoto.com/image/f0089517/800wm" alt="">
-    <div class="hero1-r">GOOD FOOD Online</div>
+    <img style="width: 60%; height: 1000px; border-radius: 0 108px 108px 0px;" src="https://media.sciencephoto.com/image/f0089517/800wm" alt="">
+    <div class="hero1-r">WELCOME TO OUR SHOP</div>
   </div>
   <!-- <div class="hero">
     HOME
@@ -196,10 +231,10 @@ input[type=number]{
       <div class="product_info">
           <div class="product_name" style="color: #011427; font-size: 26px;">{{ product.name }}</div>
           <div class="product_details" >
-            <a href="{% url 'details' product.id %}" style="color: #474747; font-size: 16px;">see details ></a>
+            <!-- <a href="{% url 'details' product.id %}" style="color: #474747; font-size: 16px;">see details ></a> -->
           </div> <br>
           <div class="product_qty_default"><span style="color: #404041; font-size: 18px;">Unit Quantity: {{ product.quantity }} Box </span></div> <br>
-          <div class="txt" style="color: #03305f; font-size: 20px;">Update Quantity</div>
+          <!-- <div class="txt" style="color: #03305f; font-size: 20px;">Update Quantity</div> -->
           <form action="{% url 'save_product' product.id %}" method="post">
               {% csrf_token %}
               <div class="product_qty">
@@ -208,7 +243,8 @@ input[type=number]{
                   <button type="button" class="add_product">+</button>
               </div>
               <br>
-              <div class="product_price"><h4 style="color: #02162c;">Price: {{ product.price }} $</h4>  </div>
+              <div class="product_price"><h4 style="color: #696e75; font-size: 2rem; font-weight: 400;">
+               <span style="color: #14243b; font-size: 2rem; font-weight: 700;">Price:</span>  {{ product.price }} $</h4>  </div>
               <div class="new_price"></div>
               {% if user.is_authenticated %}
               <button type="submit" class="product_btn">Add To Cart</button>

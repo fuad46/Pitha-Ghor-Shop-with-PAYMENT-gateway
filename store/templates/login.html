@@ -11,113 +11,66 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/login.css' %}">
-  <!-- <style>
-    body{
-      font-family: "Poppins", serif;
-      font-weight: 400;
-      font-style: normal;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      width: 100%;
-      height: 100%;
-    }
+ <style>
+  body{
+    background: #EEAECA;
+    background: radial-gradient(circle,rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+  }
+  .right{
+    background: #f4f4f44d;
+    background: rgba(255, 255, 255, 0.1); /* semi-transparent */
+  backdrop-filter: blur(10px);         /* main glass effect */
+  -webkit-backdrop-filter: blur(10px); /* for Safari support */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  color: white;
+  margin-right: 3rem;
+  background: #f4f4f4;
+  }
+.left{
+  
+  background: rgba(27, 57, 117, 0.589);
+  backdrop-filter: blur(10px);        
+  -webkit-backdrop-filter: blur(10px); 
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  color: white;
  
-    .logo{
-      color: #415a77;
-      font-weight: 800;
-      font-size: 24px;
-      margin: 1.2rem;
-
-    }
-    .main{
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      
-    }
-    .left{
-      width: 50%;
-      height: 600px;
-      margin-top: 10px;
-      margin-left: 0;
-      background: #415a77;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .left-title{
-      color: #fff;
-      font-weight: 600;
-      font-size: 44px;
-    }
-    .right{
-      width: 40%;
-      margin: 0 0 5% 5%;
-      
-    }
- 
-    label{
-      color: #23364d;
-      font-weight: 500;
-      font-size: 16px;
-    }
-    .form-info{
-      margin-bottom: 5%;
-    }
-    input[type=email],input[type=password], select {
-      width: 100%;
-      padding: 12px 20px;
-      margin: 8px 0;
-      display: inline-block;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-sizing: border-box;
-      font-size: 12px;
-    }
-    button[type=submit] {
-      width: 100%;
-      background-color: #415a77;
-      color: white;
-      padding: 14px 20px;
-      margin: 8px 0;
-      margin-bottom: 40px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    .reg-link, a{
-      color: #51647a;
-      font-weight: 300;
-      font-size: 12px;
-     
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    a{
-      color: #049b6e;
-      margin-left: 4px;
-      font-weight: 600;
-    }
-  </style> -->
+}
+input{
+  background: none;
+  color: #500707;
+  border: 2px solid rgb(44, 91, 177); 
+  
+  
+}
+input::placeholder{
+color: #290505;
+font-size: 1rem;
+}
+input:focus {
+  border: 1.5px solid rgb(96, 106, 192); /* ensure border stays white on focus */
+  outline: none;
+  font-size: 1rem;
+}
+ </style>
 </head>
 <body>
   
-  <div class="logo">Shop</div>
+  <div class="logo" > <span style="font-size: larger; color: #45035f7a;">Pitaghor</span>Shop</div>
 {% if error %}
     <p style="color: rgb(233, 8, 38);">{{ error }}</p>
 {% endif %}
 <div class="main">
-  <!------------------- left start  --------------->
-  <div class="left">
-     <div class="left-title">LOGIN</div>
-  </div>
-  <!---- left end --->
+     <!------------------- left start  --------------->
+     <div class="left">
+      <div class="left-title">LOGIN</div>
+   </div>
+   <!---- left end --->
   <!------------------ right start  ---------------->
   <div class="right">
     <form method="post">
@@ -140,6 +93,8 @@
     </div>
     </div>
    <!-- right end  -->
+
+
 </div>
 
 </body>
